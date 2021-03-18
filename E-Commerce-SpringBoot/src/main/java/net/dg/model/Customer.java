@@ -38,6 +38,8 @@ public class Customer {
 	
 	private Collection<Role> roles;
 	
+	public Customer() {}
+	
 	public Customer(String fullName, String email, String password, String contact, Collection<Role> roles) {
 		super();
 		this.fullName = fullName;

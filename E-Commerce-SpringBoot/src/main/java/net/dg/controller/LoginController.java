@@ -10,14 +10,14 @@ public class LoginController {
 
 	@RequestMapping("/admin_login")
 	public String AdminLogin() {
-		return "adminlogin";
+		return "/login/adminlogin";
 	}
 	
-	@RequestMapping("/customer_login")
+	@RequestMapping("/login")
 	public String UserLogin() {
-		return "customerlogin";
+		return "/login/customerlogin";
 	}
-
+	
 	@GetMapping("/403")
 	public String Error403() {
 		return "error403";

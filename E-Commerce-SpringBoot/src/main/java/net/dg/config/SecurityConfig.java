@@ -39,7 +39,9 @@ public class SecurityConfig {
 			.authorizeRequests().antMatchers(
 					"/js/**",
 					"/css/**",
-					"/images/**").permitAll()
+					"/images/**",
+					"/registration/**",
+					"/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -98,11 +100,13 @@ public class SecurityConfig {
 			.authorizeRequests().antMatchers(
 					"/js/**",
 					"/css/**",
-					"/images/**").permitAll()
+					"/images/**",
+					"/registration/**",
+					"/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/customer_login")
+			.loginPage("/login")
 			.defaultSuccessUrl("/products", true)
 			.permitAll()
 			.and()
@@ -111,7 +115,7 @@ public class SecurityConfig {
 			.clearAuthentication(true)
 			.deleteCookies("JSESSIONID")
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/customer_login?logout")
+			.logoutSuccessUrl("/login?logout")
 			.permitAll()
 			.and()
 			.exceptionHandling()
