@@ -2,62 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
-body {
-	margin: 0;
-	font-family: Arial, Helvetica, sans-serif;
+
+body{
+  margin: 0px;
+  padding: 0px;
 }
 
-.topnav {
+.header-container {
 	overflow: hidden;
-	background-color: #336;
+	height: 50px;
+    text-align: left;
+    position: relative;
+    background: #336;
+    color: white;
+}
+.header-container .header-bar  {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+}
+.header-container .header-bar  a  {
+    color: white;
+    font-size: bold;
 }
 
-.topnav a {
-	float: left;
-	color: #f2f2f2;
-	text-align: center;
-	padding: 11px 16px;
-	text-decoration: none;
-	font-size: 17px;
+.site-name {
+	
+    font-size:200%;
+    margin:10px 20px 10px 15px;
+    padding: 1px;
 }
 
-.topnav a:hover {
-	background-color: #ddd;
-	color: black;
-}
+  
 
-.topnav a.active {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.topnav input[type=text] {
-	float: left;
-	padding: 3px;
-	margin-top: 8px;
-	margin-right: 20px;
-	border: none;
-	font-size: 17px;
-}
+  
 </style>
 </head>
 <body>
 
-	<div class="topnav">
-		<a href="https://github.com/alexdg722">Github</a> <a
-			th:href="@{/accountants}">Home</a> <a
-			th:href="@{/showNewAccountantForm}"> Add Accountant </a> <a
-			th:href="@{/students}"> Go to Students </a> <a th:href="@{/logout}"
-			style="color: rgb(128, 255, 255);"><strong>Logout</strong></a>
-		<form th:action="@{/accountants}" method="get">
-			<input id="txtSearch" type="text" placeholder="Search..."
-				name="keyword" required> <input type="submit"
-				style="height: 0px; width: 0px; border: none; padding: 0px;"
-				hidefocus="true" />
-		</form>
-	</div>
-
+	<div class="header-container"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+ 
+   <div class="site-name">E-Commerce</div>
+   
+   <div class="header-bar">
+      <th>
+         <a th:href="@{/logout}">Logout</a>
+      </th>
+       
+      
+   </div>
+   
+</div>
 
 
 </body>

@@ -160,6 +160,13 @@ public class ProductController {
 		return "update_product";
 	}
 	
+	@GetMapping("/products")
+	String showProducts(Model map) {
+		List<Product> productList = productService.getAllProducts();
+		map.addAttribute("productList", productList);
+		return "productlist";
+	}
+	
 
 	
 
