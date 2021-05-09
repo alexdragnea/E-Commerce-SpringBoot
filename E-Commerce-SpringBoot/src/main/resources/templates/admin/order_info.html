@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Main's Main Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<div class="container">
+    <h2 align="center" th:text="'Order Id: ' + *{orderId}"></h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each ="orderedProduct : ${orderedProducts}">
+            <td th:utext="${orderedProduct.getName()}" />
+            <td th:utext="${orderedProduct.getPrice()}" />
+            <td th:utext="${orderedProduct.getQuantity()}" />
+            <td th:utext="${orderedProduct.getDescription()}" />
+
+        </tr>
+        </tbody>
+
+    </table>
+
+    <p align="right" th:text="'Total sum: ' + ${totalPrice}"></p>
+
+    <a th:align="right" th:href="@{'/admin/orders'}" class="col-md-1">
+        <button type="button" class="btn btn-info" value="Order" style="float: right">Back</button>
+    </a>
+
+
+</div>
+
+
+
+</body>
+</html>

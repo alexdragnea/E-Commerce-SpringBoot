@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Main's Main Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h2 align="center">Not Approved Orders</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Order Id</th>
+            <th>User Id</th>
+            <th>Date</th>
+            <th>Is Approved</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each ="notApprovedOrder : ${notApprovedOrders}">
+            <td th:utext="${notApprovedOrder.getId()}" />
+            <td th:utext="${notApprovedOrder.getUser().getId()}" />
+            <td th:utext="${notApprovedOrder.getOrderDate()}" />
+            <td th:utext="${notApprovedOrder.isApproved()}" />
+
+            <td>
+                <a th:href="@{/admin/orders/approve(orderId=${notApprovedOrder.id})}"
+                   class="btn btn-success btn-sm">
+                    Approve
+                </a>
+                <a th:href="@{/admin/orders/decline(orderId=${notApprovedOrder.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('Are you sure you want to decline this order?'))) return false">
+                  Decline
+                </a>
+                <a th:href="@{/admin/orders/{orderId}(orderId=${notApprovedOrder.getId()})}"
+                   class="btn btn-warning btn-sm">
+                    Details
+                </a>
+
+
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+<hr>
+
+<div class="container">
+    <h2 align="center">Approved Orders</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Order Id</th>
+            <th>User Id</th>
+            <th>Date</th>
+            <th>Is Approved</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each ="approvedOrder : ${approvedOrders}">
+            <td th:utext="${approvedOrder.getId()}" />
+            <td th:utext="${approvedOrder.getUser().getId()}" />
+            <td th:utext="${approvedOrder.getOrderDate()}" />
+            <td th:utext="${approvedOrder.isApproved()}" />
+
+            <td>
+                <a th:href="@{/admin/orders/{orderId}(orderId=${approvedOrder.getId()})}"
+                   class="btn btn-warning btn-sm">
+                    Details
+                </a>
+                <!--                <a th:href="@{/admin/users/block(userId=${user.id})}"-->
+                <!--                   class="btn btn-success btn-sm">-->
+                <!--                    Approve-->
+                <!--                </a>-->
+                <!--                <a th:href="@{/admin/users/unblock(userId=${user.id})}"-->
+                <!--                   class="btn btn-danger btn-sm"-->
+                <!--                   onclick="if (!(confirm('Are you sure you want to decline this order?'))) return false">-->
+                <!--                  Decline-->
+                <!--                </a>-->
+                <!--                <a th:href="@{/admin/users/delete(userId=${user.id})}"-->
+                <!--                   class="btn btn-warning btn-sm">-->
+                <!--                    Details-->
+                <!--                </a>-->
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .center {
+            width: 400px; /* Ширина элемента в пикселах */
+            padding: top 20px;/*20px; /* Поля вокруг текста */
+            margin: auto; /* Выравниваем по центру */
+            /* Цвет фона */
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="center">
+
+    <div class="center" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form th:method="POST" th:action="@{/admin/account/{userId}(userId=${user.id})}" th:object="${user}">
+                <fieldset class="center">
+                    <h1 th:text="'Account: ' + ${user.email} + '!'">Hello, world!</h1>
+                    <h3 align="center">Update Your Info</h3>
+                    <div>
+                        <label for="firstName">First Name: </label>
+                        <input type="text" class="form-control" th:field="*{firstName}" id="firstName" placeholder="Enter First Name">
+                        <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name: </label>
+                        <input type="text" class="form-control" th:field="*{lastName}" id="lastName" placeholder="Enter Last Name">
+                        <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Enter Password">
+                        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                    </div>
+
+                    <div style="margin-top: 16px">
+                        <div> <!--class="col-xs-6 col-sm-6 col-md-6"-->
+                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Update"/>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

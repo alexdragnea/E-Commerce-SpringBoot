@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce - Cart </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:include="./resources/header2.html"></div>
+<main role="main">
+    <!--    <div th:if="${param.errorString == 'Stock is not enough'}">-->
+    <!--        <div class="alert alert-danger">-->
+    <!--            Invalid username/password or blocked. Please contact admin@admin.com-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="container">
+        <h4 align="center">Products in Cart</h4>
+        <p align="center" class="text-danger" th:text="${errorString}"></p>
+        <table class="table table-bordered table-striped">
+            <thead class="table-secondary">
+            <tr>
+                <th>
+                    <a>Name</a>
+                </th>
+
+                <th>
+                    <a>Description</a>
+                </th>
+                <th>
+                    <a>Publication Date</a>
+                </th>
+
+                <th>
+                    <a>Price</a>
+                </th>
+                <th>
+                    <a>Needed Quantity</a>
+                </th>
+                <th>
+                    <a>Action</a>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:utext="${product.getKey().getName()}"/>
+                <td th:utext="${product.getKey().getDescription()}"/>
+                <td th:utext="${product.getKey().getCreateDate()}"/>
+                <td th:utext="${product.getKey().getPrice()}"/>
+
+
+                <td>
+                    <form th:method="POST" th:action="@{/user/cart}" th:object="${product}">
+                        <div style="display:flex">
+                            <input th:name="neededQuantity"
+                                   th:value="${product.getValue()}"
+                                   th:size="2">
+                            <input type="hidden" id="productId" th:name="productId"
+                                   th:value="${product.getKey().getId()}"/>
+                            <input type="submit" class="btn btn-sm btn-success" value="Submit"
+                                   th:value="#{cartPage.tableProductsInCart.button.submit}">
+                        </div>
+                    </form>
+                </td>
+
+
+                <td>
+                    <a th:href="@{'/user/cart/removeproduct/{productId}'(productId=${product.getKey().getId()})}"
+                       class="col-md-1"
+                       sec:authorize="hasAuthority('USER')">
+                        <button type="button"
+                                class="btn btn-danger btn-sm">Remove
+                        </button>
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+
+        </table>
+
+        <div>
+            <p align="right" th:text="'Total Sum($): ' + ${totalPrice}"></p>
+
+            <a th:align="right" th:href="@{'/user/cart/order'}" class="col-md-1"
+               sec:authorize="hasAuthority('USER')">
+                <button type="button" class="btn btn-success" value="Order" style="float: right">Checkout</button>
+            </a>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <h4 align="center">Waiting For Approval</h4>
+        <table class="table table-bordered table-striped">
+            <thead class="table-info">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Order Id</th>
+                <th>Order Date</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="notApprovedOrderedProduct : ${notApprovedOrderedProducts}">
+                <td th:utext="${notApprovedOrderedProduct.getName()}"/>
+                <td th:utext="${notApprovedOrderedProduct.getQuantity()}"/>
+                <td th:utext="${notApprovedOrderedProduct.getPrice()}"/>
+                <td th:utext="${notApprovedOrderedProduct.getDescription()}"/>
+                <td th:utext="${notApprovedOrderedProduct.getOrder().getId()}"/>
+                <td th:utext="${notApprovedOrderedProduct.getOrder().getOrderDate()}"/>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <h4 align="center">Order History</h4>
+        <table class="table table-bordered table-striped">
+            <thead class="table-succes">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Order Id</th>
+                <th>Order Date</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="approvedOrderedProduct : ${approvedOrderedProducts}">
+                <td th:utext="${approvedOrderedProduct.getName()}"/>
+                <td th:utext="${approvedOrderedProduct.getQuantity()}"/>
+                <td th:utext="${approvedOrderedProduct.getPrice()}"/>
+                <td th:utext="${approvedOrderedProduct.getDescription()}"/>
+                <td th:utext="${approvedOrderedProduct.getOrder().getId()}"/>
+                <td th:utext="${approvedOrderedProduct.getOrder().getOrderDate()}"/>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<div th:include="./resources/footer.html"></div>
+
+</body>
+</html>

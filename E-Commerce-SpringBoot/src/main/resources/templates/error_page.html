@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+
+
+
+<main role="main">
+    <h3 th:text="${errorString}"></h3>
+</main>
+
+<a class="btn btn-sm btn-primary" href="/user/">Back</a>
+
+
+
+
+
+</body>
+</html>

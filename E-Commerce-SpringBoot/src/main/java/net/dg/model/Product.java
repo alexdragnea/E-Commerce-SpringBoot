@@ -1,5 +1,11 @@
 package net.dg.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -12,7 +18,12 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -23,69 +34,20 @@ public class Product {
 	
 	private String name;
 	private String description;
-	private double price;
+	private BigDecimal price;
 	
 	@Lob
 	@Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
 	private byte[] image;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name = "quantity", nullable = false)
+	@NotNull
+	private Integer quantity;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", image="
-				+ Arrays.toString(image) + ", createDate=" + createDate + "]";
-	}
 	
 	
 }

@@ -47,9 +47,15 @@ h1 span {
 
 				<form th:action="@{/registration}" method="post" th:object="${user}">
 					<div class="form-group">
-						<label class="control-label" for="fullName"> Name </label>
-						<input id="firstName" class="form-control" th:field="*{fullName}"
+						<label class="control-label" for="firstName"> Firstname </label>
+						<input id="firstName" class="form-control" th:field="*{firstName}"
 							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="lastName"> Lastname </label>
+						<input id="lastName" class="form-control" th:field="*{lastName}"
+							   required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
@@ -63,12 +69,7 @@ h1 span {
 							id="password" class="form-control" type="password"
 							th:field="*{password}" required autofocus="autofocus" />
 					</div>
-					
-					<div class="form-group">
-						<label class="control-label" for="contact"> Contact </label>
-						<input id="firstName" class="form-control" th:field="*{contact}"
-							required autofocus="autofocus" />
-					</div>
+
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-success">Register</button>

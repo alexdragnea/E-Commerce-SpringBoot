@@ -176,10 +176,14 @@ table td {
          	<li><a
 					th:href="@{/admin/product/productDetails(id=${product.id})}"
 					class="btn btn-info text-right" target="_blank">View</a>
-            
-               <a
-					th:href="@{/admin/product/productDetails(id=${product.id})}"
-					class="btn btn-danger" target="_blank">Buy</a>
+
+                <a th:href="@{'/user/cart/addproduct/{productId}'(productId=${product.id})}"
+                   sec:authorize="hasAuthority('USER')">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Added to Cart')">Add to Cart
+                    </button>
+                </a>
+
+
             </li>
             <!-- For Manager edit Product -->
             

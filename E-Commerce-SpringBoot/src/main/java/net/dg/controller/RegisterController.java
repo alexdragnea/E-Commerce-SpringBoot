@@ -1,38 +1,39 @@
 package net.dg.controller;
 
+import net.dg.model.User;
+import net.dg.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import net.dg.model.Customer;
-import net.dg.service.CustomerService;
+
 
 @Controller
 @RequestMapping("/registration")
 public class RegisterController {
-	
-	private CustomerService customerService;
+
+	private UserService userService;
 
 
-	public RegisterController(CustomerService customerService) {
+	public RegisterController(UserService userService) {
 		super();
-		this.customerService = customerService;
+		this.userService = userService;
 	}
-	
+
 	@ModelAttribute("user")
-    public Customer customerRegistration() {
-        return new Customer();
-    }
-	
+	public User customerRegistration() {
+		return new User();
+	}
+
 	@GetMapping
 	public String showRegistrationForm() {
 		return "/login/registration";
 	}
-	
+
 	@PostMapping
-	public String registerCustomerAccount(@ModelAttribute("user") Customer customer) {
-		customerService.saveCustomer(customer);
+	public String registerCustomerAccount(@ModelAttribute("user") User user) {
+		userService.saveNewUser(user);
 		return "redirect:/registration?success";
 	}
 }

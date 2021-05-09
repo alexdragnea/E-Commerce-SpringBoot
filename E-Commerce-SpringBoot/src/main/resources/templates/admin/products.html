@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<header th:insert="_blocks/header :: header"></header>
+
+<div class="container">
+    <h2 align="center">Products</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Publication Date</th>
+            <th>Action</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each ="product : ${products}">
+            <td th:utext="${product.id}" />
+            <td th:utext="${product.name}" />
+            <td th:utext="${product.quantity}" />
+            <td th:utext="${product.price}" />
+            <td th:utext="${product.description}" />
+            <td th:utext="${product.publicationDate}" />
+            <td>
+<!--                <a th:href="@{/admin/users/block(userId=${user.id})}"-->
+<!--                   class="btn btn-info btn-sm">-->
+<!--                   Edit-->
+<!--                </a>-->
+                <a class="btn btn-warning btn-sm">Edit</a>
+                <a class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a class="btn btn-primary" href="/admin/products/product-form" role="button">Create new product</a></p>
+</div>
+
+</body>
+</html>
