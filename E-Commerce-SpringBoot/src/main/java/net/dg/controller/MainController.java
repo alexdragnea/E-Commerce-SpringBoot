@@ -59,11 +59,11 @@ public class MainController {
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) throws Exception {
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
+        List<Product> productList = productService.getAllProducts();
+        model.addAttribute("productList", productList);
 
 
-        return "index";
+        return "productlist";
     }
 
 }

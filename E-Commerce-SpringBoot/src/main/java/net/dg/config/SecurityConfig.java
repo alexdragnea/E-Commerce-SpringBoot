@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/cart/**", "/login/**","/js/**",
                         "/css/**",
                         "/images/**",
-                        "/admin/product/productDetails/**",
-                        "/admin/product/display/**")
+                        "/products",
+                        "/product/**")
                 .permitAll()
                 .antMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user/")
+                .defaultSuccessUrl("/products")
                 .permitAll()
                 .and()
                 .logout()

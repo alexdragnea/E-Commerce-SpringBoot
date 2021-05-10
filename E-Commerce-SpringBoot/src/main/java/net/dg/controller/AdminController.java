@@ -1,5 +1,6 @@
 package net.dg.controller;
 
+import net.dg.model.ShippingAddress;
 import net.dg.model.User;
 import net.dg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.PreUpdate;
 import java.util.Optional;
 
 @Controller

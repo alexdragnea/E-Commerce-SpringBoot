@@ -14,7 +14,7 @@
 
 	<h1 class="text-center">E-Commerce - Admin Page</h1>
 
-	<div th:include="./resources/adminheader.html"></div>
+	<div th:include="./resources/header.html"></div>
 	<br>
 
 	<div class="container-fluid">
@@ -34,7 +34,7 @@
 				<td th:text="${productList.id}"></td>
 				<td th:text="${productList.name}"></td>
 				<td><img
-					th:src="@{${'/admin/product/display/'+ productList.id}}"
+					th:src="@{${'/product/display/'+ productList.id}}"
 					class="card img-fluid" style="width: 90px" alt="center" /></td>
 				<td th:text="${productList.description}"></td>
 				<td th:text="${productList.price} + '$'"></td>
@@ -42,7 +42,7 @@
 					th:text="${#dates.format({productList.createDate}, 'dd-MM-yyyy')}" /></td>
 
 				<td><a
-					th:href="@{/admin/product/productDetails(id=${productList.id})}"
+					th:href="@{/product/productDetails(id=${productList.id})}"
 					class="btn btn-info text-right" target="_blank">View</a>
 					<a
 					th:href="@{/admin/deleteProduct/{id}(id=${productList.id})}"

@@ -1,7 +1,9 @@
 package net.dg.controller;
 
+import net.dg.model.ShippingAddress;
 import net.dg.model.User;
 import net.dg.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +18,8 @@ public class RegisterController {
 	private UserService userService;
 
 
+	@Autowired
 	public RegisterController(UserService userService) {
-		super();
 		this.userService = userService;
 	}
 

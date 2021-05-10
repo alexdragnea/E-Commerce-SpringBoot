@@ -1,6 +1,7 @@
 package net.dg.service.impl;
 
 import net.dg.model.Cart;
+import net.dg.model.ShippingAddress;
 import net.dg.model.User;
 import net.dg.repository.UserRepository;
 import net.dg.service.UserService;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         final String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
         user.setCart(new Cart());
-
+        user.setShippingAddress(new ShippingAddress());
         userRepository.save(user);
         return true;
     }
@@ -99,6 +100,7 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
+
         userRepository.save(user);
     }
 }

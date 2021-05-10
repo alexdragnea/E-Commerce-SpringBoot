@@ -155,17 +155,13 @@ table td {
 </style>
    </head>
    <body>
-  
-       
-     
 
-	<div th:include="./resources/customerheader.html"></div>
-	<div th:include="./resources/menu.html"></div>
+   <div th:include="./resources/header.html"></div>
        
       <div class="product-preview-container" th:each="product : ${productList}">
          <ul>
            <li><img class="product-image"
-					th:src="@{|/admin/product/display/${product.id}|}"
+					th:src="@{|/product/display/${product.id}|}"
 					/></li>
 					
    
@@ -174,7 +170,7 @@ table td {
             
             <li style="color:blue;font-weight: bold;">Price: <span th:utext="${product.price} + '$'"></span></li>
          	<li><a
-					th:href="@{/admin/product/productDetails(id=${product.id})}"
+					th:href="@{/product/productDetails(id=${product.id})}"
 					class="btn btn-info text-right" target="_blank">View</a>
 
                 <a th:href="@{'/user/cart/addproduct/{productId}'(productId=${product.id})}"
@@ -185,8 +181,6 @@ table td {
 
 
             </li>
-            <!-- For Manager edit Product -->
-            
          </ul>
       </div>
        

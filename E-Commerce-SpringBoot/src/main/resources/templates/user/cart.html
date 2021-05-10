@@ -9,7 +9,7 @@
 
 <body>
 
-<div th:include="./resources/header2.html"></div>
+<div th:include="./resources/header.html"></div>
 <main role="main">
     <!--    <div th:if="${param.errorString == 'Stock is not enough'}">-->
     <!--        <div class="alert alert-danger">-->
@@ -18,7 +18,7 @@
     <!--    </div>-->
 
     <div class="container">
-        <h4 align="center">Products in Cart</h4>
+        <h3 align="center">Products in Cart</h3>
         <p align="center" class="text-danger" th:text="${errorString}"></p>
         <table class="table table-bordered table-striped">
             <thead class="table-secondary">
@@ -98,7 +98,7 @@
     <hr>
 
     <div class="container">
-        <h4 align="center">Waiting For Approval</h4>
+        <h3 align="center">Waiting For Approval</h3>
         <table class="table table-bordered table-striped">
             <thead class="table-info">
             <tr>
@@ -129,7 +129,7 @@
     <hr>
 
     <div class="container">
-        <h4 align="center">Order History</h4>
+        <h3 align="center">Order History</h3>
         <table class="table table-bordered table-striped">
             <thead class="table-succes">
             <tr>

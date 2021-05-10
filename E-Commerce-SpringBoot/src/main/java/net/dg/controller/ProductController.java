@@ -122,7 +122,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/admin/product/display/{id}")
+    @GetMapping("/product/display/{id}")
     @ResponseBody
     void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
             throws ServletException, IOException {
@@ -133,7 +133,7 @@ public class ProductController {
         response.getOutputStream().close();
     }
 
-    @GetMapping("/admin/product/productDetails")
+    @GetMapping("/product/productDetails")
     String showProductDetails(@RequestParam("id") Long id, Optional<Product> product, Model model) {
         try {
             log.info("Id :: " + id);
