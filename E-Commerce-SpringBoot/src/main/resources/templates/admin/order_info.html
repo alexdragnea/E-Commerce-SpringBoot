@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <meta charset="UTF-8">
-    <title>Main's Main Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>E-Commerce Admin </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<div th:include="./fragments/header.html"></div>
 
 <div class="container">
-    <h2 align="center" th:text="'Order Id: ' + *{orderId}"></h2>
+    <h3 align="center" th:text="'Order no. ' + *{orderId}"></h3>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -22,18 +22,15 @@
         </thead>
 
         <tbody>
-        <tr th:each ="orderedProduct : ${orderedProducts}">
-            <td th:utext="${orderedProduct.getName()}" />
-            <td th:utext="${orderedProduct.getPrice()}" />
-            <td th:utext="${orderedProduct.getQuantity()}" />
-            <td th:utext="${orderedProduct.getDescription()}" />
+        <tr th:each="orderedProduct : ${orderedProducts}">
+            <td th:utext="${orderedProduct.getName()}"/>
+            <td th:utext="${orderedProduct.getPrice()}"/>
+            <td th:utext="${orderedProduct.getQuantity()}"/>
+            <td th:utext="${orderedProduct.getDescription()}"/>
 
         </tr>
         </tbody>
-
     </table>
-
-    <p align="right" th:text="'Total sum: ' + ${totalPrice}"></p>
 
     <a th:align="right" th:href="@{'/admin/orders'}" class="col-md-1">
         <button type="button" class="btn btn-info" value="Order" style="float: right">Back</button>
@@ -43,6 +40,7 @@
 </div>
 
 
+<div th:include="./fragments/footer.html"></div>
 
 </body>
 </html>

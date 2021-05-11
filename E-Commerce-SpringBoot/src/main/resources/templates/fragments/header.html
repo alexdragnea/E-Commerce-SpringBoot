@@ -39,13 +39,19 @@
             border: none;
             font-size: 17px;
         }
+
+        h2 span {
+            background: rgb(255, 255, 255);
+            color: #4300ba;
+            padding: 0 628.5px;
+            font-family: "Segoe UI", Arial, sans-serif
+        }
+
     </style>
 </head>
 <body>
-<h1 class="text-center">E-Commerce</h1>
-
+<h2 align="center"><strong><span>E-Commerce</span></strong></h2>
 <div class="topnav">
-
 
     <a sec:authorize="isAuthenticated()">
         <a th:href="@{/logout}">Logout</a>
@@ -61,18 +67,18 @@
 
     <a sec:authorize="hasAuthority('USER')">
         <a th:href="@{/user/account}">Account</a>
-    </a>>
+    </a>
 
     <a sec:authorize="!isAuthenticated()">
         <a th:href="@{/login}">Cart</a>
-    </a>>
-
-    <a sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/user/cart}">Cart</a>
     </a>
 
     <a sec:authorize="hasAuthority('USER')">
         <a th:href="@{/user/cart}">Cart</a>
+    </a>
+
+    <a sec:authorize="!isAuthenticated()">
+        <a th:href="@{/registration}">Register</a>
     </a>
 
     <a sec:authorize="!isAuthenticated()">
@@ -90,6 +96,7 @@
     <a sec:authorize="hasAuthority('USER')">
         <a th:href="@{/products}">Home</a>
     </a>
+
 
 </div>
 

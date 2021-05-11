@@ -2,7 +2,6 @@ package net.dg.model;
 
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -11,12 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Data
 
 @Entity
 @Table( name="user",
@@ -47,80 +44,28 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Builder.Default
-//    private List<UserRole> role = new ArrayList<UserRole>(Collections.singleton(UserRole.USER));
     private UserRole role = UserRole.USER;
 
     @Column(name = "isNonLocked")
     @Builder.Default
-    private boolean isNonLocked = true;
+    private boolean isNonLocked = false;
+
+    private String city;
+
+    private String street;
+
+    @Column(name = "street_Number")
+    private String streetNumber;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="shippingAddressId")
-    private ShippingAddress shippingAddress;
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
 
 
-    // ToDo
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    // Todo
     @Override
     public List<UserRole> getAuthorities() {
         return new ArrayList<>(Collections.singleton(role));

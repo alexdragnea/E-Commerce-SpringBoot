@@ -1,50 +1,45 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Главная страница</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>E-Commerge Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .center {
-            width: 400px; /* Ширина элемента в пикселах */
-            padding: top 20px;/*20px; /* Поля вокруг текста */
-            margin: auto; /* Выравниваем по центру */
-            /* Цвет фона */
+            width: 400px;
+            padding: top 20px;
+            margin: auto;
         }
     </style>
 </head>
 
 <body>
 
+<div th:include="./fragments/header.html"></div>
 
-
-<!--<main role="main" class="container">-->
 <div class="center">
 
     <div class="center" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <fieldset class="center">
-                <h1 align="center">Admin's Home Page</h1>
+                <h1 align="center">Admin Home Page</h1>
                 <div style="margin-top: 16px">
                     <p><a class="btn btn-success btn-lg btn-block" href="/admin/orders" role="button">Orders</a></p>
-                </div><div style="margin-top: 16px">
+                </div>
+                <div style="margin-top: 16px">
                     <p><a class="btn btn-success btn-lg btn-block" href="/admin/users" role="button">Users</a></p>
                 </div>
                 <div style="margin-top: 16px">
-                    <p><a class="btn btn-success btn-lg btn-block" href="/admin/products" role="button">Products</a></p>
+                    <p><a class="btn btn-success btn-lg btn-block" href="/admin/products/show"
+                          role="button">Products</a></p>
                 </div>
             </fieldset>
         </div>
     </div>
 
-<div/>
+    <div/>
 
-
-
-
-
-
-
-
+    <div th:include="./fragments/footer.html"></div>
 </body>
 </html>

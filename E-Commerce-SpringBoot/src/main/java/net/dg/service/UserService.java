@@ -1,6 +1,5 @@
 package net.dg.service;
 
-import net.dg.model.ShippingAddress;
 import net.dg.model.User;
 
 import java.util.List;

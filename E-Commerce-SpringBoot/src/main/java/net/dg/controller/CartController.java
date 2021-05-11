@@ -1,5 +1,6 @@
 package net.dg.controller;
 
+import lombok.AllArgsConstructor;
 import net.dg.model.Product;
 import net.dg.model.User;
 import net.dg.service.CartService;
@@ -15,16 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+@AllArgsConstructor
 @Controller
 public class CartController {
+
     final private OrderService orderService;
     final private CartService cartService;
 
-    @Autowired
-    public CartController(OrderService orderService, CartService cartService) {
-        this.orderService = orderService;
-        this.cartService = cartService;
-    }
 
     @GetMapping("/user/cart")
     public String cart(@AuthenticationPrincipal User user, Model model) {

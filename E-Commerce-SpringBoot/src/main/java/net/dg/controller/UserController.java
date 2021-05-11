@@ -1,32 +1,42 @@
 package net.dg.controller;
 
+import lombok.AllArgsConstructor;
+import net.dg.model.ConfirmationToken;
 import net.dg.model.Product;
-import net.dg.model.ShippingAddress;
 import net.dg.model.User;
+import net.dg.repository.ConfirmationTokenRepository;
+import net.dg.repository.UserRepository;
+import net.dg.service.EmailService;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.PreUpdate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
-    private final ProductService productService;
+    private final String FORGOT_PASSWORD = "login/forgotPassword";
+    private final String RESET_PASSWORD = "login/resetPassword";
 
-    @Autowired
-    public UserController(UserService userService, ProductService productService) {
-        this.userService = userService;
-        this.productService = productService;
-    }
+    private UserService userService;
+    private ProductService productService;
+    private ConfirmationTokenRepository confirmationTokenRepository;
+    private UserRepository userRepository;
+    private EmailService emailService;
+
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @GetMapping("/")
     public String userHome(@AuthenticationPrincipal User user, HttpServletRequest request, Model model) {
@@ -43,13 +53,6 @@ public class UserController {
         return "/user/user_account";
     }
 
-//    @GetMapping("/account/shippingaddress")
-//    public String editOwnAccount(@AuthenticationPrincipal ShippingAddress shippingAddress, Model model) {
-//        model.addAttribute("shippingAddress", shippingAddress);
-//        return "/user/user_shippingaddress";
-//    }
-
-    // TODO: 1. Make validation of fields.
     @PostMapping("/account/{userId}")
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,
@@ -60,20 +63,100 @@ public class UserController {
         return "redirect:/user/cart";
     }
 
-//    // TODO: 1. Make validation of fields.
-//    @PostMapping("/account/shippingaddress/{shippingId}")
-//    public String updateUserInfo(@AuthenticationPrincipal ShippingAddress shippingAddress,
-//                                 @RequestParam String streetName,
-//                                 @RequestParam String apartmentNumber,
-//                                 @RequestParam String city,
-//                                 @RequestParam String state,
-//                                 @RequestParam String country,
-//                                 @RequestParam String zipCode,
-//                                 @RequestParam String contact) {
-//
-//        userService.updateUser(streetName, apartmentNumber, apartmentNumber, city, state
-//        , country, zipCode, contact);
-//        return "redirect:/user/cart";
-//    }
+    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            Optional<User> optional = userRepository.findByEmail(token.getUser().getEmail());
+            User user = optional.get();
+            user.setAccountUnLocked();
+            userRepository.save(user);
+            modelAndView.setViewName("register/accountVerified");
+        } else {
+            modelAndView.addObject("message", "true");
+            modelAndView.setViewName("register/accountVerified");
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
+    public ModelAndView displayResetPassword(ModelAndView modelAndView, User user) {
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName(FORGOT_PASSWORD);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+    public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) {
+        Optional<User> optional = userRepository.findByEmail(user.getEmail());
+
+        if (optional.isPresent()) {
+
+            User existingUser = optional.get();
+            ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
+            confirmationTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(existingUser.getEmail());
+            mailMessage.setSubject("Complete Password Reset");
+            mailMessage.setFrom("javaprojects1999@gmail.com");
+            mailMessage.setText("Tom complete the password reset, please click here: "
+                    + "http://localhost:8080/user/confirm-reset?token=" + confirmationToken.getConfirmationToken());
+
+            emailService.sendEmail(mailMessage);
+
+            modelAndView.addObject("succes", "Request to reset password received" +
+                    ", check your inbox for the reset link.");
+            modelAndView.setViewName(FORGOT_PASSWORD);
+        } else {
+            modelAndView.addObject("error", "This email does not exist!");
+            modelAndView.setViewName(FORGOT_PASSWORD);
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/confirm-reset", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView validateResetToken(ModelAndView modelAndView,
+                                           @RequestParam("token") String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            Optional<User> optional = userRepository.findByEmail(token.getUser().getEmail());
+            User user = optional.get();
+
+            userRepository.save(user);
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("email", user.getEmail());
+            modelAndView.setViewName(RESET_PASSWORD);
+        } else {
+            modelAndView.addObject("error", "The link is invalid or broken!");
+            modelAndView.setViewName(RESET_PASSWORD);
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+    public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
+
+        if (user.getEmail() != null) {
+            Optional<User> optional= userRepository.findByEmail(user.getEmail());
+            User tokenUser = optional.get();
+            tokenUser.setPassword(encoder.encode(user.getPassword()));
+
+            userRepository.save(tokenUser);
+            modelAndView.addObject("succes", "Password succesfully reseted." +
+                    "You can now log in with the new credentials.");
+            modelAndView.setViewName(RESET_PASSWORD);
+        } else {
+            modelAndView.addObject("error", "The link is invalid or broken!");
+            modelAndView.setViewName(RESET_PASSWORD);
+        }
+        return modelAndView;
+    }
 
 }

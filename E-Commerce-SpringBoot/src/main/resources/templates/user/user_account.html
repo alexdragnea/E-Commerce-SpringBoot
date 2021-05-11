@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>E-Commerce User</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .center {
             width: 400px;
@@ -14,12 +13,12 @@
     </style>
 </head>
 <body>
-<div th:include="./resources/header.html"></div>
+<div th:include="./fragments/header.html"></div>
 
 <div class="center">
 
-    <div class="center" style="margin-top:22px">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-2 col-md-offset-3">
+    <div class="center" style="margin-top:10px">
+        <div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-3">
             <form th:method="POST" th:action="@{/user/account/{userId}(userId=${user.id})}" th:object="${user}">
                 <fieldset class="center">
                     <h3 align="center" th:text="${user.firstName} + ' ' + ${user.lastName}"></h3>
@@ -37,14 +36,39 @@
                         <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
                     </div>
                     <div>
-                        <label for="password">Password</label>
                         <input type="password" class="form-control" th:field="*{password}" id="password"
                                placeholder="Password">
                         <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                     </div>
+                    <div>
+                        <label for="city">City: </label>
+                        <input type="text" class="form-control" th:field="*{city}" id="city"
+                               placeholder="#City">
+                        <p class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
+                    </div>
+                    <div>
+                        <label for="street">Street name: </label>
+                        <input type="text" class="form-control" th:field="*{street}" id="street"
+                               placeholder="#street">
+                        <p class="text-danger" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></p>
+                    </div>
+                    <div>
+                        <label for="streetNumber">Street number: </label>
+                        <input type="number" class="form-control" th:field="*{streetNumber}" id="streetNumber"
+                               placeholder="#streetNumber">
+                        <p class="text-danger" th:if="${#fields.hasErrors('streetNumber')}"
+                           th:errors="*{streetNumber}"></p>
+                    </div>
+                    <div>
+                        <label for="phoneNumber">Phone number: </label>
+                        <input type="number" class="form-control" th:field="*{phoneNumber}" id="phoneNumber"
+                               placeholder="#phoneNumber">
+                        <p class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                           th:errors="*{phoneNumber}"></p>
+                    </div>
 
-                    <div style="margin-top: 16px">
-                        <div> <!--class="col-xs-6 col-sm-6 col-md-6"-->
+                    <div style="margin-top: 10px">
+                        <div>
                             <input type="submit" class="btn btn-lg btn-success btn-block"/>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -58,6 +82,6 @@
 
 </div>
 
-<div th:include="./resources/footer.html"></div>
+<div th:include="./fragments/footer.html"></div>
 </body>
 </html>

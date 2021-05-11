@@ -1,12 +1,9 @@
 package net.dg.config;
 
-import net.dg.service.UserService;
 import net.dg.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,11 +22,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/tools/**", "/registration/**",
-                        "/cart/**", "/login/**","/js/**",
+                .antMatchers("/", "/registration/**",
+                        "/login/**",
+                        "/js/**",
                         "/css/**",
                         "/images/**",
                         "/products",
+                        "/user/confirm-account/**",
+                        "/user/confirm-reset/**",
+                        "/user/forgot-password/**",
+                        "/user/reset-password/**",
                         "/product/**")
                 .permitAll()
                 .antMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")

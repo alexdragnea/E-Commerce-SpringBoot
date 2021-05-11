@@ -1,6 +1,6 @@
 package net.dg.controller;
 
-import net.dg.model.ShippingAddress;
+import lombok.AllArgsConstructor;
 import net.dg.model.User;
 import net.dg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.PreUpdate;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final UserService userService;
 
-    @Autowired
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @GetMapping("")
     public String adminHome() {
@@ -62,7 +58,6 @@ public class AdminController {
         return "/admin/admin_account";
     }
 
-    // TODO: 1. Make validation of fields. 2. Adjust Method
     @PostMapping("/account/{userId}")
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,

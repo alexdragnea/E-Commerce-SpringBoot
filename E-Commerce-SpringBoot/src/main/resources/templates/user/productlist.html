@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <style>
+        html {
+            background: white;
+        }
+
+        body {
+
+            margin: 0px auto;
+            padding: 0px 5px;
+            text-align: center;
+        }
+
+        .header-container .header-bar {
+            position: absolute;
+            right: 10px;
+            bottom: 20px;
+        }
+
+        .header-container .header-bar a {
+            color: white;
+            font-size: bold;
+        }
+
+        .menu-container a {
+            margin: 5px 5px 5px 10px;
+            color: #004d99;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .product-preview-container {
+            border: 0.5px solid;
+            padding: 10px;
+            width: 200px;
+            margin: 5px;
+            display: inline-block;
+            text-shadow: blue;
+        }
+
+        .product-preview-container input {
+            width: px;
+        }
+
+
+        .product-image {
+            width: 160px;
+            height: 110px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 5px;
+            margin: 5px;
+        }
+
+        table td {
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:include="./fragments/header.html"></div>
+
+<div class="product-preview-container" th:each="product : ${productList}">
+    <ul>
+        <li><img class="product-image"
+                 th:src="@{|/product/display/${product.id}|}"
+        /></li>
+
+
+        <li style="font-family:verdana; font-weight: bold">Name: <span th:utext="${product.name}"></span></li>
+
+
+        <li style="color:blue;font-weight: bold;">Price: <span th:utext="${product.price} + '$'"></span></li>
+        <li><a
+                th:href="@{/product/productDetails(id=${product.id})}"
+                class="btn btn-info text-right" target="_blank">View</a>
+
+            <a th:href="@{'/user/cart/addproduct/{productId}'(productId=${product.id})}"
+               sec:authorize="hasAuthority('USER')">
+                <button type="button" class="btn btn-primary btn-sm" onclick="alert('Added to Cart')">Add to Cart
+                </button>
+            </a>
+
+
+        </li>
+    </ul>
+</div>
+
+<div th:include="./fragments/footer.html"></div>
+
+
+</body>
+</html>

@@ -10,9 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@ToString
-@Getter
-@Setter
+@Data
 
 @Entity
 @Table(name="orders")
@@ -42,14 +40,4 @@ public class Order {
     @Builder.Default
     private boolean isApproved = false;
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", user=" + user +
-                ", orderDate=" + orderDate +
-                ", orderedProducts=" +
-                ", isApproved=" + isApproved +
-                '}';
-    }
 }

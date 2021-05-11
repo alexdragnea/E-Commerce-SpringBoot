@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>E-Commerce Admin </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<div th:include="./fragments/header.html"></div>
 
 <div class="container">
 
-    <h3 align="center">Users</h3>
+    <h3 align="center">List of users</h3>
     <hr>
 
     <table class="table table-bordered table-striped">
@@ -21,32 +21,32 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>isActive</th>
-            <th>Action</th>
+            <th>Active</th>
+            <th>Actions</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each ="user : ${users}">
-            <td th:utext="${user.id}" />
-            <td th:utext="${user.firstName}" />
-            <td th:utext="${user.lastName}" />
-            <td th:utext="${user.email}" />
-            <td th:utext="${user.getAuthorities()}" />
-            <td th:utext="${user.isAccountNonLocked()}" />
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.id}"/>
+            <td th:utext="${user.firstName}"/>
+            <td th:utext="${user.lastName}"/>
+            <td th:utext="${user.email}"/>
+            <td th:utext="${user.getAuthorities()}"/>
+            <td th:utext="${user.isAccountNonLocked()}"/>
             <td>
                 <a th:href="@{/admin/users/block(userId=${user.id})}"
                    class="btn btn-info btn-sm">
-                   Block
+                    Block
                 </a>
                 <a th:href="@{/admin/users/unblock(userId=${user.id})}"
                    class="btn btn-warning btn-sm">
-                   Unblock
+                    Unblock
                 </a>
                 <a th:href="@{/admin/users/delete(userId=${user.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
-                   Delete
+                    Delete
                 </a>
             </td>
         </tr>
@@ -55,50 +55,7 @@
 </div>
 
 
-
-
-
-<!--<main role="main" class="container">-->
-<!--    <div class="starter-template">-->
-<!--        <h1 align="center">List of users</h1>-->
-<!--        <table border="1">-->
-<!--            <tr>-->
-<!--                <th>Id</th>-->
-<!--                <th>First Name</th>-->
-<!--                <th>Last Name</th>-->
-<!--                <th>Email</th>-->
-<!--                <th>Role</th>-->
-<!--                <th>isActive</th>-->
-<!--            </tr>-->
-<!--            <tr th:each ="user : ${users}">-->
-<!--                <td th:utext="${user.id}">...</td>-->
-<!--                <td th:utext="${user.firstName}">...</td>-->
-<!--                <td th:utext="${user.lastName}">...</td>-->
-<!--                <td th:utext="${user.email}">...</td>-->
-<!--                <td th:utext="${user.getAuthorities()}">...</td>-->
-<!--                <td th:utext="${user.isAccountNonLocked()}">...</td>-->
-<!--                <td>-->
-<!--                    <form th:action="'/admin/users/' + ${user.id} + '/block'" method="post">-->
-<!--                        <button class="btn btn-success btn-sm" type="submit">Block</button>-->
-<!--                    </form>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <form th:action="'/admin/users/' + ${user.id} + '/unblock'" method="post">-->
-<!--                        <button class="btn btn-warning btn-sm" type="submit">Unblock</button>-->
-<!--                    </form>-->
-<!--                </td>-->
-
-<!--                <td>-->
-<!--                    <form th:action="'/admin/users/' + ${user.id} + '/remove'" method="post">-->
-<!--                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>-->
-<!--                    </form>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    <div/>-->
-<!--</main>-->
-
-
+<div th:include="./fragments/footer.html"></div>
 
 </body>
 </html>

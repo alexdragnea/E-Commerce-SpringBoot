@@ -47,12 +47,7 @@ public class OrderServiceImpl implements OrderService {
             OrderedProduct orderedProduct = new OrderedProduct();
             orderedProduct.setProductId(entry.getKey().getId());
             orderedProduct.setName(entry.getKey().getName());
-
-            if (entry.getValue() <= entry.getKey().getQuantity())
-                orderedProduct.setQuantity(entry.getValue());
-            else
-                System.out.println("eroare");
-
+            orderedProduct.setQuantity(entry.getValue());
             orderedProduct.setPrice(entry.getKey().getPrice());
             orderedProduct.setDescription(entry.getKey().getDescription());
             orderedProduct.setOrder(order);
@@ -163,7 +158,6 @@ public class OrderServiceImpl implements OrderService {
     public Order findOrderById(Long orderId) throws Exception {
         return orderRepository.findOneById(orderId).orElseThrow(Exception::new);
     }
-
 
 
     @Override

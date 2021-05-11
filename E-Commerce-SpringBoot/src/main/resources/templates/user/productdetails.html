@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>E-Commerce</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div th:include="./fragments/header.html"></div>
+<br>
+<div class="banner-bootom-w3-agileits py-5">
+    <div class="container py-xl-4 py-lg-2">
+
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>P</span>roduct
+            <span>D</span>etails</h3><br>
+
+        <div class="row">
+            <div class="col-lg-5 col-md-8 single-right-left ">
+                <div class="grid images_3_of_2">
+                    <div class="flexslider">
+                        <div class="thumb-image">
+                            <img th:src="@{${'/product/display/'+id}}"
+                                 class="img img-responsive img-fluid" alt="">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 single-right-left simpleCart_shelfItem">
+                Name: <span th:text="${name}" class="mb-3"></span>
+                <p class="mb-3">
+                    Price :&#36; <span class="item_price" th:text="${price}"></span>
+                </p>
+                <div class="product-single-w3l">
+                    Description: <span th:text="${description}" class="my-sm-4 my-3">
+						</span>
+                </div>
+                <br>
+                <a th:href="@{'/user/cart/addproduct/{productId}'(productId=${id})}"
+                   sec:authorize="hasAuthority('USER')">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Added to Cart')">Add to Cart
+                    </button>
+                </a>
+                <hr>
+                <a href="/products">Go Home</a>
+                &emsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="./fragments/footer.html"></div>
+</body>
+</html>
