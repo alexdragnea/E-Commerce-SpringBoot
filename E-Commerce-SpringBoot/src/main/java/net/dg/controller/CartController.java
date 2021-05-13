@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.dg.exceptions.EmptyCartException;
 import net.dg.exceptions.ProductAlreadyInCartException;
 import net.dg.exceptions.StockIsNotEnoughException;
-import net.dg.model.*;
+import net.dg.model.Product;
 import net.dg.model.User;
 import net.dg.service.CartService;
 import net.dg.service.OrderService;
@@ -48,14 +48,20 @@ public class CartController {
     public String updateNeededQuantity(@AuthenticationPrincipal User user,
                                        @RequestParam(value = "productId") Long productId,
                                        @RequestParam(value = "neededQuantity") Integer neededQuantity,
-                                       Model model) {
+                                       Model model) throws Exception {
 
+        try {
             cartService.updateNeededQuantity(user, productId, neededQuantity);
+        } catch (StockIsNotEnoughException e) {
+            e.printStackTrace();
+            model.addAttribute("errorString", e.getMessage());
             Map<Product, Integer> productsInCart = cartService.getAllProductsInCart(user);
             model.addAttribute(PRODUCTS, productsInCart);
             model.addAttribute(TOTAL_PRICE, cartService.getTotal(productsInCart));
             model.addAttribute(APPROVED_ORDERED_PRODUCTS, orderService.getAllApprovedOrderedProductsOfUser(user));
             model.addAttribute(NOT_APPROVED_ORDERED_PRODUCTS, orderService.getAllNotApprovedOrderedProductsOfUser(user));
+            return "error_page";
+        }
 
         return REDIRECT_USER_CART;
     }

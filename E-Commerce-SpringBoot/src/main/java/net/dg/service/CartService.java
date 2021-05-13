@@ -13,5 +13,5 @@ public interface CartService {
     Map<Product, Integer> getAllProductsInCart(User user);
     BigDecimal getTotal(Map<Product, Integer> productsWithNeededQuantity);
     void clearProductsFromCart(User user);
-    void updateNeededQuantity(User user, Long productId, Integer neededQuantity);
+    void updateNeededQuantity(User user, Long productId, Integer neededQuantity) throws Exception;
 }

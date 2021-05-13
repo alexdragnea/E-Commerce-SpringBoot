@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
@@ -40,19 +40,12 @@
                 <td th:utext="${product.description}"/>
                 <td th:utext="${product.createDate}"/>
                 <td>
-                    <!--                    <a sec:authorize="!isAuthenticated()">-->
-                    <!--                        <a class="btn btn-primary btn-sm" th:href="@{/login}">Add to Cart</a>-->
-                    <!--                    </a>-->
+
                     <a sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-primary btn-sm" th:href="@{/user/cart}"
                            th:text="#{userHomePage.table.button.addToCart}">Add to Cart</a>
                     </a>
-                    <!--                    <a sec:authorize="hasAuthority('USER')">-->
-                    <!--                        <a class="btn btn-primary btn-sm" th:href="@{'/user/cart/addproduct/{productId}'(productId=${product.id})}"-->
-                    <!--                        th:if="${product.quantity}>0">-->
-                    <!--                            <button type="button" class="btn btn-primary btn-sm" th:text="Add to Cart">Add to Cart</button>-->
-                    <!--                        </a>-->
-                    <!--                    </a>-->
+
                     <a th:href="@{'/user/cart/addproduct/{productId}'(productId=${product.id})}" class="col-md-1"
                        sec:authorize="hasAuthority('USER')">
                         <button type="button" class="btn btn-primary btn-sm" onclick="alert('Added to Cart')"
@@ -60,9 +53,6 @@
                         </button>
                     </a>
 
-                    <!--                    <a sec:authorize="hasAuthority('USER')" th:if="${cartProducts.contains(product.id)}">-->
-                    <!--                        <button type="button" class="btn btn-primary btn-sm" th:text="Added">Added</button>-->
-                    <!--                    </a>-->
 
                 </td>
             </tr>

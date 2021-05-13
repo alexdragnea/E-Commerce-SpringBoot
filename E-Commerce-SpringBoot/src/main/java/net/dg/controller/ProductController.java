@@ -30,7 +30,7 @@ public class ProductController {
     @Value("${uploadDir}")
     private String uploadFolder;
 
-    private final String REDIRECT_ADMIN_PRODUCTS = "redirect:/admin/products/show";
+    private final static String REDIRECT_ADMIN_PRODUCTS = "redirect:/admin/products/show";
 
     private ProductService productService;
 
@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @GetMapping("/admin/products/show")
-    String show(Model map) {
+    public String show(Model map) {
         List<Product> product = productService.getAllProducts();
         map.addAttribute("product", product);
         return "admin/products";

@@ -2,6 +2,7 @@ package net.dg.service.impl;
 
 import lombok.AllArgsConstructor;
 import net.dg.exceptions.ProductAlreadyInCartException;
+import net.dg.exceptions.StockIsNotEnoughException;
 import net.dg.model.Cart;
 import net.dg.model.InCartProduct;
 import net.dg.model.Product;
@@ -77,11 +78,16 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void updateNeededQuantity(User user, Long productId, Integer neededQuantity) {
+    public void updateNeededQuantity(User user, Long productId, Integer neededQuantity) throws Exception{
         InCartProduct inCartProduct = inCartProductRepository
-                .findByCartAndProductId(user.getCart(), productId).get();
+                .findByCartAndProductId(user.getCart(), productId).orElseThrow(Exception::new);
         Product product = productRepository.getOne(productId);
-        inCartProduct.setNeededQuantity(neededQuantity);
-        inCartProductRepository.save(inCartProduct);
+
+        if(neededQuantity <= product.getQuantity()) {
+            inCartProduct.setNeededQuantity(neededQuantity);
+            inCartProductRepository.save(inCartProduct);
+        } else {
+                throw new StockIsNotEnoughException();
+        }
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
@@ -14,8 +14,8 @@
 <main role="main">
 
     <div class="container">
-        <h3 align="center">Products in Cart</h3>
-        <p align="center" class="text-danger" th:text="${errorString}"></p>
+        <h3 th:align="center">Products in Cart</h3>
+        <p th:align="center" class="text-danger" th:text="${errorString}"></p>
         <table class="table table-bordered table-striped">
             <thead class="table-secondary">
             <tr>
@@ -80,7 +80,7 @@
         </table>
 
         <div>
-            <p align="right" th:text="'Total Sum: ' + ${totalPrice} + '$'"></p>
+            <p th:align="right" th:text="'Total Sum: ' + ${totalPrice} + '$'"></p>
 
             <a th:align="right" th:href="@{'/user/cart/order'}" class="col-md-1"
                sec:authorize="hasAuthority('USER')">
@@ -93,7 +93,7 @@
     <hr>
 
     <div class="container">
-        <h3 align="center">Waiting For Approval</h3>
+        <h3 th:align="center">Waiting For Approval</h3>
         <table class="table table-bordered table-striped">
             <thead class="table-info">
             <tr>
@@ -124,7 +124,7 @@
     <hr>
 
     <div class="container">
-        <h3 align="center">Order History</h3>
+        <h3 th:align="center">Order History</h3>
         <table class="table table-bordered table-striped">
             <thead class="table-succes">
             <tr>

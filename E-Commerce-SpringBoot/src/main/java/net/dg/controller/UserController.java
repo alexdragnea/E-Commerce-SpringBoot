@@ -26,9 +26,9 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    private final String FORGOT_PASSWORD = "login/forgotPassword";
-    private final String RESET_PASSWORD = "login/resetPassword";
-    private final String ERROR = "error";
+    private final static String FORGOT_PASSWORD = "login/forgotPassword";
+    private final static String RESET_PASSWORD = "login/resetPassword";
+    private final static String ERROR = "error";
 
     private UserService userService;
     private ProductService productService;

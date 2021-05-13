@@ -6,17 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+
 </head>
 <body>
-
-	<h1 class="text-center">E-Commerce - Admin Page</h1>
 
 	<div th:include="./fragments/header.html"></div>
 	<br>
 
-	<div class="container-fluid">
+	<div class="container">
 		<table id="example" class="table table-bordered">
 			<thead>
 				<tr>
@@ -56,19 +53,9 @@
 			<a th:href="@{/admin/showNewProductForm}" class="btn btn-primary">
 				Add Product </a>
 		</div>
+		<br>
+		<br>
 
-
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#example').DataTable();
-			});
-		</script>
 	</div>
 
 	<div th:include="./fragments/footer.html"></div>
