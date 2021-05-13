@@ -1,11 +1,13 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.Product;
+import net.dg.exceptions.EmptyCartException;
+import net.dg.exceptions.ProductAlreadyInCartException;
+import net.dg.exceptions.StockIsNotEnoughException;
+import net.dg.model.*;
 import net.dg.model.User;
 import net.dg.service.CartService;
 import net.dg.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,74 +22,77 @@ import java.util.Map;
 @Controller
 public class CartController {
 
-    final private OrderService orderService;
-    final private CartService cartService;
+    private static final String PRODUCTS = "products";
+    private static final String TOTAL_PRICE = "totalPrice";
+    private static final String APPROVED_ORDERED_PRODUCTS = "approvedOrderedProducts";
+    private static final String NOT_APPROVED_ORDERED_PRODUCTS = "notApprovedOrderedProducts";
+
+    private static final String REDIRECT_USER_CART = "redirect:/user/cart";
+    private static final String USER_CART = "/user/cart";
+
+    private final OrderService orderService;
+    private final CartService cartService;
 
 
     @GetMapping("/user/cart")
     public String cart(@AuthenticationPrincipal User user, Model model) {
         Map<Product, Integer> productsInCart = cartService.getAllProductsInCart(user);
-        model.addAttribute("products", productsInCart);
-        model.addAttribute("totalPrice", cartService.getTotal(productsInCart));
-        model.addAttribute("approvedOrderedProducts", orderService.getAllApprovedOrderedProductsOfUser(user));
-        model.addAttribute("notApprovedOrderedProducts", orderService.getAllNotApprovedOrderedProductsOfUser(user));
-        return "/user/cart";
+        model.addAttribute(PRODUCTS, productsInCart);
+        model.addAttribute(TOTAL_PRICE, cartService.getTotal(productsInCart));
+        model.addAttribute(APPROVED_ORDERED_PRODUCTS, orderService.getAllApprovedOrderedProductsOfUser(user));
+        model.addAttribute(NOT_APPROVED_ORDERED_PRODUCTS, orderService.getAllNotApprovedOrderedProductsOfUser(user));
+        return USER_CART;
     }
 
-    //TODO make validation of neededQuantity without error_page
     @PostMapping("/user/cart")
     public String updateNeededQuantity(@AuthenticationPrincipal User user,
                                        @RequestParam(value = "productId") Long productId,
                                        @RequestParam(value = "neededQuantity") Integer neededQuantity,
-                                       Model model) throws Exception {
-        try {
+                                       Model model) {
+
             cartService.updateNeededQuantity(user, productId, neededQuantity);
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("errorString", e.getMessage());
             Map<Product, Integer> productsInCart = cartService.getAllProductsInCart(user);
-            model.addAttribute("products", productsInCart);
-            model.addAttribute("totalPrice", cartService.getTotal(productsInCart));
-            model.addAttribute("approvedOrderedProducts", orderService.getAllApprovedOrderedProductsOfUser(user));
-            model.addAttribute("notApprovedOrderedProducts", orderService.getAllNotApprovedOrderedProductsOfUser(user));
-            return "/user/cart";
-        }
-        return "redirect:/user/cart";
+            model.addAttribute(PRODUCTS, productsInCart);
+            model.addAttribute(TOTAL_PRICE, cartService.getTotal(productsInCart));
+            model.addAttribute(APPROVED_ORDERED_PRODUCTS, orderService.getAllApprovedOrderedProductsOfUser(user));
+            model.addAttribute(NOT_APPROVED_ORDERED_PRODUCTS, orderService.getAllNotApprovedOrderedProductsOfUser(user));
+
+        return REDIRECT_USER_CART;
     }
 
     @GetMapping("/user/cart/addproduct/{productId}")
     public String addProductToCart(@PathVariable("productId") Long productId,
                                    @AuthenticationPrincipal User user, Model model) throws Exception {
 
-        cartService.addProductToCart(user, productId);
-        return "redirect:/user/cart";
+        try {
+            cartService.addProductToCart(user, productId);
+        } catch (ProductAlreadyInCartException e) {
+            e.printStackTrace();
+            model.addAttribute("errorString", e.getMessage());
+            return "error_page";
+        }
+        return REDIRECT_USER_CART;
     }
 
     @GetMapping("/user/cart/removeproduct/{productId}")
     public String removeProductToCart(@PathVariable("productId") Long productId,
-                                   @AuthenticationPrincipal User user) throws Exception {
+                                      @AuthenticationPrincipal User user) {
 
         cartService.removeProductFromCart(user, productId);
-        return "redirect:/user/cart";
+        return REDIRECT_USER_CART;
     }
 
-    //TODO think is StockIsNotEnough exception needed hear and rewrite
     @GetMapping("/user/cart/order")
-    public String makeOrder(@AuthenticationPrincipal User user, Model model) {
+    public String makeOrder(@AuthenticationPrincipal User user, Model model) throws Exception {
 
         try {
             orderService.makeOrder(user);
-        } catch (Exception e) {
+        } catch (EmptyCartException | StockIsNotEnoughException e) {
             e.printStackTrace();
             model.addAttribute("errorString", e.getMessage());
-            Map<Product, Integer> productsInCart = cartService.getAllProductsInCart(user);
-            model.addAttribute("products", productsInCart);
-            model.addAttribute("totalPrice", cartService.getTotal(productsInCart));
-            model.addAttribute("approvedOrderedProducts", orderService.getAllApprovedOrderedProductsOfUser(user));
-            model.addAttribute("notApprovedOrderedProducts", orderService.getAllNotApprovedOrderedProductsOfUser(user));
-            return "/user/cart";
+            return "error_page";
         }
 
-        return "redirect:/user/cart";
+        return REDIRECT_USER_CART;
     }
 }

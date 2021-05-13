@@ -1,8 +1,7 @@
 package net.dg.repository;
 
+import net.dg.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import net.dg.model.Product;
 import org.springframework.stereotype.Repository;
 
 @Repository

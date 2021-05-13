@@ -34,10 +34,10 @@
             </div>
 
             <div class="col-lg-7 single-right-left simpleCart_shelfItem">
-                Name: <span th:text="${name}" class="mb-3"></span>
-                <p class="mb-3">
-                    Price :&#36; <span class="item_price" th:text="${price}"></span>
-                </p>
+              <h2 th:text="${name}" class="mb-3"></h2>
+                <h3 class="mb-3">
+                    Price: <span class="item_price" th:text="${price} + '&#36;'"></span>
+                </h3>
                 <div class="product-single-w3l">
                     Description: <span th:text="${description}" class="my-sm-4 my-3">
 						</span>

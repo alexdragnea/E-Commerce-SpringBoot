@@ -24,19 +24,6 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         this.userRepository = userRepository;
     }
 
-//    @Bean
-//    public PasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-//    @PostConstruct
-//    public void init() {
-//        userRepository.findByEmail("qq@ww").ifPresent(user -> {
-//                    user.setPassword(new BCryptPasswordEncoder().encode("password"));
-//                    userRepository.save(user);
-//        });
-//
-//    }
 
     @Override
     public boolean saveNewUser(User user) {
@@ -94,10 +81,15 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
     }
 
     @Override
-    public void updateUser(User user, String firstName, String lastName, String password) {
+    public void updateUser(User user, String firstName, String lastName, String password,
+                           String city, String street, String streetNumber, String phoneNumber) {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setCity(city);
+        user.setStreet(street);
+        user.setStreetNumber(streetNumber);
+        user.setPhoneNumber(phoneNumber);
 
         userRepository.save(user);
     }

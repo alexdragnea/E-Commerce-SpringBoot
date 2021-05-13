@@ -1,5 +1,7 @@
 package net.dg.service.impl;
 
+import net.dg.exceptions.EmptyCartException;
+import net.dg.exceptions.StockIsNotEnoughException;
 import net.dg.model.Order;
 import net.dg.model.OrderedProduct;
 import net.dg.model.Product;
@@ -32,34 +34,42 @@ public class OrderServiceImpl implements OrderService {
         this.productService = productService;
     }
 
-    // TODO remake method
     @Override
-    public void makeOrder(User user) {
+    public void makeOrder(User user) throws Exception {
         Map<Product, Integer> productsForOrder = cartService.getAllProductsInCart(user);
 
-        Order order = new Order();
-        order.setUser(user);
-        order.setOrderDate(new Date());
-        orderRepository.save(order);
+        if (productsForOrder.isEmpty()) {
+            throw new EmptyCartException();
+        } else {
 
-        Set<OrderedProduct> orderedProducts = new HashSet<>();
-        for (Map.Entry<Product, Integer> entry : productsForOrder.entrySet()) {
-            OrderedProduct orderedProduct = new OrderedProduct();
-            orderedProduct.setProductId(entry.getKey().getId());
-            orderedProduct.setName(entry.getKey().getName());
-            orderedProduct.setQuantity(entry.getValue());
-            orderedProduct.setPrice(entry.getKey().getPrice());
-            orderedProduct.setDescription(entry.getKey().getDescription());
-            orderedProduct.setOrder(order);
-            orderedProducts.add(orderedProduct);
-            saveProduct(orderedProduct);
+            Order order = new Order();
+            order.setUser(user);
+            order.setOrderDate(new Date());
+            orderRepository.save(order);
+
+            Set<OrderedProduct> orderedProducts = new HashSet<>();
+            for (Map.Entry<Product, Integer> entry : productsForOrder.entrySet()) {
+                OrderedProduct orderedProduct = new OrderedProduct();
+                orderedProduct.setProductId(entry.getKey().getId());
+                orderedProduct.setName(entry.getKey().getName());
+                if (entry.getValue() <= entry.getKey().getQuantity())
+                    orderedProduct.setQuantity(entry.getValue());
+                else
+                    throw new StockIsNotEnoughException();
+
+                orderedProduct.setPrice(entry.getKey().getPrice());
+                orderedProduct.setDescription(entry.getKey().getDescription());
+                orderedProduct.setOrder(order);
+                orderedProducts.add(orderedProduct);
+                saveProduct(orderedProduct);
+            }
+
+            order.setOrderedProducts(orderedProducts);
+            order.setCart(user.getCart());
+            orderRepository.save(order);
+
+            cartService.clearProductsFromCart(user);
         }
-
-        order.setOrderedProducts(orderedProducts);
-        order.setCart(user.getCart());
-        orderRepository.save(order);
-
-        cartService.clearProductsFromCart(user);
     }
 
     @Override
@@ -67,7 +77,6 @@ public class OrderServiceImpl implements OrderService {
         Set<OrderedProduct> allOrderedProducts = new HashSet<>();
 
         Set<Order> allOrders = orderRepository.findAllByUser(user);
-//        Set<Order> allOrders = user.getCart().getOrders();
 
         for (Order x : allOrders) {
             allOrderedProducts.addAll(x.getOrderedProducts());
@@ -115,7 +124,6 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAllByIsApprovedIsTrue();
     }
 
-    //TODO rewrite method
     @Override
     public void approveOrder(Long orderId) throws Exception {
         Order order = orderRepository.findById(orderId).orElseThrow(Exception::new);
@@ -125,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
             if (x.getQuantity() > productService
                     .getProductById(x.getProductId())
                     .orElseThrow(Exception::new).getQuantity()) {
-                System.out.println("EROARE");
+                throw new StockIsNotEnoughException();
             }
         }
 
@@ -144,7 +152,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void declineOrder(Long orderId) throws Exception {
-        // Удалить ордер с данным айди, и заполнить корзину продуктами из ордера по айдишнику в ОрдередПродактс
         Order currentOrder = orderRepository.findOneById(orderId).orElseThrow(Exception::new);
 
         for (OrderedProduct x : currentOrder.getOrderedProducts()) {
@@ -177,10 +184,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public BigDecimal getTotal(Set<OrderedProduct> products) {
-        return products.stream()
-                .map(product -> product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())))
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
+        return null;
     }
-
 }
+

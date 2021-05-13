@@ -10,7 +10,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@ToString
+@Getter
+@Setter
 
 @Entity
 @Table(name="orders")

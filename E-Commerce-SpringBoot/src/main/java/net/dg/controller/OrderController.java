@@ -7,7 +7,6 @@ import net.dg.model.User;
 import net.dg.service.EmailService;
 import net.dg.service.OrderService;
 import net.dg.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.Email;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,28 +31,25 @@ public class OrderController {
         return "/admin/orders";
     }
 
-    //TODO think about StockIsNotEnoughException
     @GetMapping("/admin/orders/approve")
     public String approveOrder(@RequestParam("orderId") Long orderId, Model model) throws Exception {
 
-        try {
             Order order = orderService.findOrderById(orderId);
             Optional<User> optional = userService.findById(order.getUser().getId());
-            User user = optional.get();
-            orderService.approveOrder(orderId);
 
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("Order number " + order.getId());
-            mailMessage.setFrom("javaprojects1999@gmail.com");
-            mailMessage.setText("Your order has been approved and will be delivered shortly." +
-                    "For viewing your order please go to http://localhost:8080/user/cart");
-            emailService.sendEmail(mailMessage);
+            if(optional.isPresent()) {
+                User user = optional.get();
+                orderService.approveOrder(orderId);
 
-        } catch (Exception e) {
-            model.addAttribute("errorString", e.getMessage());
-            return "error_page";
-        }
+                SimpleMailMessage mailMessage = new SimpleMailMessage();
+                mailMessage.setTo(user.getEmail());
+                mailMessage.setSubject("E-Commerce order " + order.getId());
+                mailMessage.setFrom("javaprojects1999@gmail.com");
+                mailMessage.setText("Your order has been approved and will be delivered shortly." +
+                        "For viewing your order please go to http://localhost:8080/user/cart");
+                emailService.sendEmail(mailMessage);
+            }
+
 
         return "redirect:/admin/orders";
     }

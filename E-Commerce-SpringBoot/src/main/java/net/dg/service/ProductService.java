@@ -1,9 +1,9 @@
 package net.dg.service;
 
+import net.dg.model.Product;
+
 import java.util.List;
 import java.util.Optional;
-
-import net.dg.model.Product;
 
 public interface ProductService {
 

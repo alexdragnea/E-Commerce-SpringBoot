@@ -1,21 +1,12 @@
 package net.dg.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 
 @NoArgsConstructor
@@ -42,10 +33,7 @@ public class Product {
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
-	@Column(name = "quantity", nullable = false)
-	@NotNull
+	@Column(name = "quantity")
 	private Integer quantity;
 
-	
-	
 }

@@ -9,7 +9,6 @@ import net.dg.repository.UserRepository;
 import net.dg.service.EmailService;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +28,7 @@ public class UserController {
 
     private final String FORGOT_PASSWORD = "login/forgotPassword";
     private final String RESET_PASSWORD = "login/resetPassword";
+    private final String ERROR = "error";
 
     private UserService userService;
     private ProductService productService;
@@ -57,9 +57,13 @@ public class UserController {
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
-                                 @RequestParam String password) {
+                                 @RequestParam String password,
+                                 @RequestParam String city,
+                                 @RequestParam String street,
+                                 @RequestParam String streetNumber,
+                                 @RequestParam String phoneNumber) {
 
-        userService.updateUser(user, firstName, lastName, password);
+        userService.updateUser(user, firstName, lastName, password, city, street, streetNumber, phoneNumber);
         return "redirect:/user/cart";
     }
 
@@ -70,10 +74,13 @@ public class UserController {
 
         if (token != null) {
             Optional<User> optional = userRepository.findByEmail(token.getUser().getEmail());
-            User user = optional.get();
-            user.setAccountUnLocked();
-            userRepository.save(user);
-            modelAndView.setViewName("register/accountVerified");
+            if (optional.isPresent()) {
+
+                User user = optional.get();
+                user.setAccountUnLocked();
+                userRepository.save(user);
+                modelAndView.setViewName("register/accountVerified");
+            }
         } else {
             modelAndView.addObject("message", "true");
             modelAndView.setViewName("register/accountVerified");
@@ -112,7 +119,7 @@ public class UserController {
                     ", check your inbox for the reset link.");
             modelAndView.setViewName(FORGOT_PASSWORD);
         } else {
-            modelAndView.addObject("error", "This email does not exist!");
+            modelAndView.addObject("ERROR", "This email does not exist!");
             modelAndView.setViewName(FORGOT_PASSWORD);
         }
 
@@ -133,7 +140,7 @@ public class UserController {
             modelAndView.addObject("email", user.getEmail());
             modelAndView.setViewName(RESET_PASSWORD);
         } else {
-            modelAndView.addObject("error", "The link is invalid or broken!");
+            modelAndView.addObject("ERROR", "The link is invalid or broken!");
             modelAndView.setViewName(RESET_PASSWORD);
         }
 
@@ -144,7 +151,7 @@ public class UserController {
     public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
 
         if (user.getEmail() != null) {
-            Optional<User> optional= userRepository.findByEmail(user.getEmail());
+            Optional<User> optional = userRepository.findByEmail(user.getEmail());
             User tokenUser = optional.get();
             tokenUser.setPassword(encoder.encode(user.getPassword()));
 
@@ -153,7 +160,7 @@ public class UserController {
                     "You can now log in with the new credentials.");
             modelAndView.setViewName(RESET_PASSWORD);
         } else {
-            modelAndView.addObject("error", "The link is invalid or broken!");
+            modelAndView.addObject("ERROR", "The link is invalid or broken!");
             modelAndView.setViewName(RESET_PASSWORD);
         }
         return modelAndView;

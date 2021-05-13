@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Error Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <title>Error page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
-
 <body>
+<div th:include="./fragments/header.html"></div>
+<hr>
+
+<h3 th:align="center" th:text="${errorString}"></h3>
 
 
-
-
-<main role="main">
-    <h3 th:text="${errorString}"></h3>
-</main>
-
-<a class="btn btn-sm btn-primary" href="/user/">Back</a>
-
-
-
-
-
+<div th:include="./fragments/footer.html"></div>
 </body>
 </html>

@@ -80,7 +80,7 @@
         </table>
 
         <div>
-            <p align="right" th:text="'Total Sum($): ' + ${totalPrice}"></p>
+            <p align="right" th:text="'Total Sum: ' + ${totalPrice} + '$'"></p>
 
             <a th:align="right" th:href="@{'/user/cart/order'}" class="col-md-1"
                sec:authorize="hasAuthority('USER')">

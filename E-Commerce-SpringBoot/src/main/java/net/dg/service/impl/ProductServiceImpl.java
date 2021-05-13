@@ -1,14 +1,13 @@
 package net.dg.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import net.dg.model.*;
+import net.dg.repository.*;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.dg.model.Product;
-import net.dg.repository.ProductRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {

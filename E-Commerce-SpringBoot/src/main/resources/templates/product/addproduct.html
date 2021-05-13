@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/style.css">
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
@@ -14,24 +13,22 @@
 </head>
 <body>
 
-<h1 class="text-center">E-Commerce - Admin Page</h1>
 <div th:include="./fragments/header.html"></div>
 <br>
 
-<h1 class="text-center">
+<h3 class="text-center">
     Add new Product
-</h1>
+</h3>
 
 <hr>
-<br>
 
-<div class="contact py-sm-5 py-4">
-    <div class="container py-xl-4 py-lg-2">
-        <!-- form -->
+
+<div class="contact py-sm-3 py-4">
+    <div class="container py-xl-5 py-lg-2">
         <form id="form">
             <div class="contact-grids1 w3agile-6">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                    <div class="col-md-4 col-sm-4 contact-form1 form-group">
                         <label class="col-form-label">Name</label> <input type="text"
                                                                           class="form-control"
                                                                           placeholder="Product Name" id="name"
@@ -45,19 +42,25 @@
                                   required="required"></textarea>
                         <p id="error_description"></p>
                     </div>
-                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                    <div class="col-md-4 col-sm-4 contact-form1 form-group">
                         <label class="col-form-label">Image</label> <input type="file"
                                                                            class="form-control" placeholder=""
                                                                            name="image" id="image"
                                                                            required="required">
                         <p id="error_file"></p>
                     </div>
-                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                    <div class="col-md-4 col-sm-4 contact-form1 form-group">
                         <label class="col-form-label">Price</label> <input type="text"
                                                                            class="form-control" placeholder="Price"
                                                                            name="price" id="price"
                                                                            required="required">
                         <p id="error_price"></p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 contact-form1 form-group">
+                        <label class="col-form-label">Quantity</label> <input type="number"
+                                                                           class="form-control" placeholder="Quantity"
+                                                                           name="quantity" id="quantity"
+                                                                           required="required">
                     </div>
                 </div>
 

@@ -21,25 +21,23 @@
 <div class="center">
 
     <div class="center" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <fieldset class="center">
-                <h1 align="center">Admin Home Page</h1>
-                <div style="margin-top: 16px">
-                    <p><a class="btn btn-success btn-lg btn-block" href="/admin/orders" role="button">Orders</a></p>
-                </div>
-                <div style="margin-top: 16px">
-                    <p><a class="btn btn-success btn-lg btn-block" href="/admin/users" role="button">Users</a></p>
-                </div>
-                <div style="margin-top: 16px">
-                    <p><a class="btn btn-success btn-lg btn-block" href="/admin/products/show"
-                          role="button">Products</a></p>
-                </div>
-            </fieldset>
-        </div>
+        <fieldset class="center">
+            <h1 align="center">Admin Home Page</h1>
+
+            <div class="d-grid gap-3">
+                <a class="btn btn-primary" href="/admin/orders" role="button">Orders</a>
+
+                <a class="btn btn-primary" href="/admin/users" role="button ">Users</a>
+
+                <a class="btn btn-primary" href="/admin/products/show"
+                        role="button">Products
+                </a>
+            </div>
+        </fieldset>
     </div>
+</div>
 
-    <div/>
 
-    <div th:include="./fragments/footer.html"></div>
+<div th:include="./fragments/footer.html"></div>
 </body>
 </html>

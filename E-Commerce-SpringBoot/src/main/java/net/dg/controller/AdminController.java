@@ -3,7 +3,6 @@ package net.dg.controller;
 import lombok.AllArgsConstructor;
 import net.dg.model.User;
 import net.dg.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +17,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    private static final String REDIRECT_ADMIN_USER = "redirect:/admin/users";
 
     private final UserService userService;
 
@@ -37,19 +38,19 @@ public class AdminController {
         Optional<User> userFromDB = userService.findById(userId);
         User user = userFromDB.orElseThrow(Exception::new);
         userService.delete(user);
-        return "redirect:/admin/users";
+        return REDIRECT_ADMIN_USER;
     }
 
     @GetMapping("/users/block")
     public String blockUser(@RequestParam("userId") Long userId) {
         userService.blockUser(userId);
-        return "redirect:/admin/users";
+        return REDIRECT_ADMIN_USER;
     }
 
     @GetMapping("/users/unblock")
     public String unBlockUser(@RequestParam("userId") Long userId) {
         userService.unblockUser(userId);
-        return "redirect:/admin/users";
+        return REDIRECT_ADMIN_USER;
     }
 
     @GetMapping("/account")
@@ -62,9 +63,13 @@ public class AdminController {
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
-                                 @RequestParam String password) {
+                                 @RequestParam String password,
+                                 @RequestParam String city,
+                                 @RequestParam String street,
+                                 @RequestParam String streetNumber,
+                                 @RequestParam String phoneNumber) {
 
-        userService.updateUser(user, firstName, lastName, password);
+        userService.updateUser(user, firstName, lastName, password, city, street, streetNumber, phoneNumber);
         return "redirect:/admin";
     }
 

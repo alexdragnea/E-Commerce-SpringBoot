@@ -11,7 +11,8 @@ import java.util.Set;
 
 
 public interface OrderService {
-    void makeOrder(User user);
+
+    void makeOrder(User user) throws Exception;
     Set<OrderedProduct> getAllOrderedProductsOfUser(User user);
     List<OrderedProduct> getAllApprovedOrderedProductsOfUser(User user);
     List<OrderedProduct> getAllNotApprovedOrderedProductsOfUser(User user);

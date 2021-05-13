@@ -9,12 +9,12 @@ public class LoginController {
 
 
     @RequestMapping("/login")
-    public String UserLogin() {
+    public String userLogin() {
         return "/login/login";
     }
 
     @GetMapping("/403")
-    public String Error403() {
+    public String error403() {
         return "error403";
     }
 }
