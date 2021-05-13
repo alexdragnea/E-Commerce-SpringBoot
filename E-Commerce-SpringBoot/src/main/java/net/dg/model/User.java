@@ -28,20 +28,20 @@ public class User implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Size(min = 2, max = 30, message = "First Name should be between 2 and 30 characters")
+    @Size(min = 2, max = 30, message = "First Name should be between 2 and 30 characters.")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Size(min = 2, max = 30, message = "Last Name should be between 2 and 30 characters")
+    @Size(min = 2, max = 30, message = "Last Name should be between 2 and 30 characters.")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty(message = "Email should not be empty.")
     @Email(message = "Email should be valid")
     @Column(nullable = false)
     private String email;
 
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty(message = "Email should not be empty.")
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -54,20 +54,23 @@ public class User implements UserDetails {
     @Builder.Default
     private boolean isNonLocked = false;
 
+    @NotEmpty(message = "City should not be empty.")
     private String city;
 
+    @NotEmpty(message = "Street should not be empty.")
     private String street;
 
+    @NotEmpty(message = "Street number should not be empty.")
     @Column(name = "street_Number")
     private String streetNumber;
 
+    @NotEmpty(message = "Phone number should not be empty.")
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
 
 
     @Override

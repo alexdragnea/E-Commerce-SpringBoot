@@ -28,52 +28,55 @@
         <h1>Registration</h1>
 
         <form th:action="@{/registration}" method="post" th:object="${user}">
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+            </div>
             <div class="form-group">
                 <input id="firstName" class="form-control" th:field="*{firstName}"
-                       placeholder="First name" required autofocus="autofocus"/>
+                       placeholder="First name" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <input id="lastName" class="form-control" th:field="*{lastName}"
-                       placeholder="Last name" required autofocus="autofocus"/>
+                       placeholder="Last name" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <input id="email" class="form-control" th:field="*{email}"
-                       placeholder="Email" required autofocus="autofocus"/>
+                       placeholder="Email" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <input
                         id="password" class="form-control" type="password"
                         th:field="*{password}"
-                        placeholder="Password" required autofocus="autofocus"/>
+                        placeholder="Password" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <input
                         id="city" class="form-control" th:field="*{city}"
-                        placeholder="City" required autofocus="autofocus"/>
+                        placeholder="City" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <input
                         id="street" class="form-control" th:field="*{street}"
-                        placeholder="Street name" required autofocus="autofocus"/>
+                        placeholder="Street name" th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <label>Street number</label>
                 <input
-                        id="streetNumber" class="form-control" th:type="number" th:field="*{streetNumber}" required
-                        autofocus="autofocus"/>
+                        id="streetNumber" class="form-control" th:type="number" th:field="*{streetNumber}"
+                        th:errorclass="is-invalid"/>
             </div>
 
             <div class="form-group">
                 <label>Phone number</label>
                 <input
                         id="phoneNumber" class="form-control" th:type="number" th:field="*{phoneNumber}"
-                        required autofocus="autofocus"/>
+                        th:errorclass="is-invalid"/>
             </div>
 
 
@@ -85,6 +88,8 @@
 
 
         </form>
+        <br>
+        <br>
     </div>
 </div>
 
