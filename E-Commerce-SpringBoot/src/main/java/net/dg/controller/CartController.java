@@ -1,6 +1,7 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import net.dg.exceptions.AddressNotFoundException;
 import net.dg.exceptions.EmptyCartException;
 import net.dg.exceptions.ProductAlreadyInCartException;
 import net.dg.exceptions.StockIsNotEnoughException;
@@ -26,6 +27,7 @@ public class CartController {
     private static final String TOTAL_PRICE = "totalPrice";
     private static final String APPROVED_ORDERED_PRODUCTS = "approvedOrderedProducts";
     private static final String NOT_APPROVED_ORDERED_PRODUCTS = "notApprovedOrderedProducts";
+    private static final String ERROR_STRING = "errorString";
 
     private static final String REDIRECT_USER_CART = "redirect:/user/cart";
     private static final String USER_CART = "/user/cart";
@@ -54,7 +56,7 @@ public class CartController {
             cartService.updateNeededQuantity(user, productId, neededQuantity);
         } catch (StockIsNotEnoughException e) {
             e.printStackTrace();
-            model.addAttribute("errorString", e.getMessage());
+            model.addAttribute(ERROR_STRING, e.getMessage());
             Map<Product, Integer> productsInCart = cartService.getAllProductsInCart(user);
             model.addAttribute(PRODUCTS, productsInCart);
             model.addAttribute(TOTAL_PRICE, cartService.getTotal(productsInCart));
@@ -74,7 +76,7 @@ public class CartController {
             cartService.addProductToCart(user, productId);
         } catch (ProductAlreadyInCartException e) {
             e.printStackTrace();
-            model.addAttribute("errorString", e.getMessage());
+            model.addAttribute(ERROR_STRING, e.getMessage());
             return "error_page";
         }
         return REDIRECT_USER_CART;
@@ -93,9 +95,9 @@ public class CartController {
 
         try {
             orderService.makeOrder(user);
-        } catch (EmptyCartException | StockIsNotEnoughException e) {
+        } catch (EmptyCartException | StockIsNotEnoughException | AddressNotFoundException e) {
             e.printStackTrace();
-            model.addAttribute("errorString", e.getMessage());
+            model.addAttribute(ERROR_STRING, e.getMessage());
             return "error_page";
         }
 

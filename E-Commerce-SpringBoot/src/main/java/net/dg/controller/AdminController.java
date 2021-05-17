@@ -60,13 +60,9 @@ public class AdminController {
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
-                                 @RequestParam String password,
-                                 @RequestParam String city,
-                                 @RequestParam String street,
-                                 @RequestParam String streetNumber,
-                                 @RequestParam String phoneNumber) {
+                                 @RequestParam String password) {
 
-        userService.updateUser(user, firstName, lastName, password, city, street, streetNumber, phoneNumber);
+        userService.updateUser(user, firstName, lastName, password);
         return "redirect:/admin";
     }
 

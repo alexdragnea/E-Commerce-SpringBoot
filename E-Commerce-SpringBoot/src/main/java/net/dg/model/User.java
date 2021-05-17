@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -20,8 +19,7 @@ import java.util.List;
 @Data
 
 @Entity
-@Table( name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +35,9 @@ public class User implements UserDetails {
     private String lastName;
 
     @NotEmpty(message = "Email should not be empty.")
-    @Email(message = "Email should be valid")
-    @Column(nullable = false)
     private String email;
 
-    @NotEmpty(message = "Email should not be empty.")
+    @NotEmpty(message = "Password should not be empty.")
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -54,23 +50,13 @@ public class User implements UserDetails {
     @Builder.Default
     private boolean isNonLocked = false;
 
-    @NotEmpty(message = "City should not be empty.")
-    private String city;
-
-    @NotEmpty(message = "Street should not be empty.")
-    private String street;
-
-    @NotEmpty(message = "Street number should not be empty.")
-    @Column(name = "street_Number")
-    private String streetNumber;
-
-    @NotEmpty(message = "Phone number should not be empty.")
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 
     @Override
@@ -109,5 +95,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setAddress(String streetName, String streetNumber, String city, String contact, String zipCode) {
+        this.address.setStreetName(streetName);
+        this.address.setStreetNumber(streetNumber);
+        this.address.setCity(city);
+        this.address.setContact(contact);
+        this.address.setZipCode(zipCode);
     }
 }

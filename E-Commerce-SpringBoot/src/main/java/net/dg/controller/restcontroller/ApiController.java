@@ -3,7 +3,6 @@ package net.dg.controller.restcontroller;
 import lombok.AllArgsConstructor;
 import net.dg.model.User;
 import net.dg.service.UserService;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

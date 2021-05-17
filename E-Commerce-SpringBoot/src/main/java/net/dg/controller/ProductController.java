@@ -32,7 +32,7 @@ public class ProductController {
 
     private final static String REDIRECT_ADMIN_PRODUCTS = "redirect:/admin/products/show";
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;

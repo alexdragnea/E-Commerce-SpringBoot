@@ -1,5 +1,6 @@
 package net.dg.service.impl;
 
+import net.dg.model.Address;
 import net.dg.model.Cart;
 import net.dg.model.User;
 import net.dg.repository.UserRepository;
@@ -35,7 +36,9 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         final String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
         user.setCart(new Cart());
+        user.setAddress(new Address());
         userRepository.save(user);
+
         return true;
     }
 
@@ -81,15 +84,10 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
     }
 
     @Override
-    public void updateUser(User user, String firstName, String lastName, String password,
-                           String city, String street, String streetNumber, String phoneNumber) {
+    public void updateUser(User user, String firstName, String lastName, String password) {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
-        user.setCity(city);
-        user.setStreet(street);
-        user.setStreetNumber(streetNumber);
-        user.setPhoneNumber(phoneNumber);
 
         userRepository.save(user);
     }
@@ -97,5 +95,14 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateAddress(User user, String streetName, String streetNumber,
+                              String city, String country, String zipCode) {
+
+        user.setAddress(streetName, streetNumber, city, country, zipCode);
+
+        userRepository.save(user);
     }
 }

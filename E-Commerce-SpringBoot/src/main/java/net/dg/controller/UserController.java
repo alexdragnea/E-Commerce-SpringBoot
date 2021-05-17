@@ -30,11 +30,11 @@ public class UserController {
     private final static String RESET_PASSWORD = "login/resetPassword";
     private final static String ERROR = "error";
 
-    private UserService userService;
-    private ProductService productService;
-    private ConfirmationTokenRepository confirmationTokenRepository;
-    private UserRepository userRepository;
-    private EmailService emailService;
+    private final UserService userService;
+    private final ProductService productService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final UserRepository userRepository;
+    private final EmailService emailService;
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -53,17 +53,32 @@ public class UserController {
         return "/user/user_account";
     }
 
+    @GetMapping("/account/address")
+    public String editOwnAddress(@AuthenticationPrincipal User user, Model model) {
+
+        model.addAttribute("user", user.getAddress());
+        return "/user/user_address";
+    }
+
     @PostMapping("/account/{userId}")
     public String updateUserInfo(@AuthenticationPrincipal User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
-                                 @RequestParam String password,
-                                 @RequestParam String city,
-                                 @RequestParam String street,
-                                 @RequestParam String streetNumber,
-                                 @RequestParam String phoneNumber) {
+                                 @RequestParam String password) {
 
-        userService.updateUser(user, firstName, lastName, password, city, street, streetNumber, phoneNumber);
+        userService.updateUser(user, firstName, lastName, password);
+        return "redirect:/user/cart";
+    }
+
+    @PostMapping("/account/address/{addressId}")
+    public String updateUserAddress(@AuthenticationPrincipal User user,
+                                    @RequestParam String streetName,
+                                    @RequestParam String streetNumber,
+                                    @RequestParam String city,
+                                    @RequestParam String contact,
+                                    @RequestParam String zipCode) {
+
+        userService.updateAddress(user, streetName, streetNumber, city, contact, zipCode);
         return "redirect:/user/cart";
     }
 
@@ -119,7 +134,7 @@ public class UserController {
                     ", check your inbox for the reset link.");
             modelAndView.setViewName(FORGOT_PASSWORD);
         } else {
-            modelAndView.addObject("ERROR", "This email does not exist!");
+            modelAndView.addObject(ERROR, "This email does not exist!");
             modelAndView.setViewName(FORGOT_PASSWORD);
         }
 
@@ -140,7 +155,7 @@ public class UserController {
             modelAndView.addObject("email", user.getEmail());
             modelAndView.setViewName(RESET_PASSWORD);
         } else {
-            modelAndView.addObject("ERROR", "The link is invalid or broken!");
+            modelAndView.addObject(ERROR, "The link is invalid or broken!");
             modelAndView.setViewName(RESET_PASSWORD);
         }
 
@@ -160,7 +175,7 @@ public class UserController {
                     "You can now log in with the new credentials.");
             modelAndView.setViewName(RESET_PASSWORD);
         } else {
-            modelAndView.addObject("ERROR", "The link is invalid or broken!");
+            modelAndView.addObject(ERROR, "The link is invalid or broken!");
             modelAndView.setViewName(RESET_PASSWORD);
         }
         return modelAndView;

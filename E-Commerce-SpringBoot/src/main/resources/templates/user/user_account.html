@@ -17,12 +17,15 @@
 
 <div class="center">
 
+    <br>
     <div class="center" style="margin-top:10px">
         <div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-3">
             <form th:method="POST" th:action="@{/user/account/{userId}(userId=${user.id})}" th:object="${user}">
                 <fieldset class="center">
                     <h3 th:align="center" th:text="${user.firstName} + ' ' + ${user.lastName}"></h3>
                     <hr>
+
+
                     <div>
                         <label for="firstName">First Name: </label>
                         <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
@@ -37,39 +40,15 @@
                     </div>
                     <div>
                         <input type="password" class="form-control" th:field="*{password}" id="password"
-                               placeholder="Password" required autofocus="autofocus">
+                               placeholder="Password">
                         <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-                    </div>
-                    <div>
-                        <label for="city">City: </label>
-                        <input type="text" class="form-control" th:field="*{city}" id="city"
-                               placeholder="#City">
-                        <p class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
-                    </div>
-                    <div>
-                        <label for="street">Street name: </label>
-                        <input type="text" class="form-control" th:field="*{street}" id="street"
-                               placeholder="#street" >
-                        <p class="text-danger" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></p>
-                    </div>
-                    <div>
-                        <label for="streetNumber">Street number: </label>
-                        <input type="number" class="form-control" th:field="*{streetNumber}" id="streetNumber"
-                               placeholder="#streetNumber">
-                        <p class="text-danger" th:if="${#fields.hasErrors('streetNumber')}"
-                           th:errors="*{streetNumber}"></p>
-                    </div>
-                    <div>
-                        <label for="phoneNumber">Phone number: </label>
-                        <input type="number" class="form-control" th:field="*{phoneNumber}" id="phoneNumber"
-                               placeholder="#phoneNumber">
-                        <p class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
-                           th:errors="*{phoneNumber}"></p>
                     </div>
 
                     <div style="margin-top: 10px">
                         <div>
                             <input type="submit" class="btn btn-lg btn-success btn-block"/>
+                            <a class="btn btn-primary" href="/user/account/address" role="button">Update shipping
+                                address</a>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                         </div>

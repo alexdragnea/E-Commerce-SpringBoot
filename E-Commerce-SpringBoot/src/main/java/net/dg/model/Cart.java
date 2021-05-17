@@ -17,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name="carts")
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false, nullable = false)

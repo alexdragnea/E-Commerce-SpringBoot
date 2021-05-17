@@ -17,9 +17,8 @@
         <tr>
             <th>Order Id</th>
             <th>User</th>
-            <th>City</th>
-            <th>Address </th>
-            <th>Contact</th>
+            <th>Address</th>
+            <th>Phone number</th>
             <th>Date</th>
             <th>Is Approved</th>
             <th>Action</th>
@@ -30,9 +29,11 @@
         <tr th:each="notApprovedOrder : ${notApprovedOrders}">
             <td th:utext="${notApprovedOrder.getId()}"/>
             <td th:utext="${notApprovedOrder.getUser().getFirstName() + ' ' + notApprovedOrder.getUser().getLastName()}"/>
-            <td th:utext="${notApprovedOrder.getUser().getCity()}"/>
-            <td th:utext="${notApprovedOrder.getUser().getStreet() + ' no. ' + notApprovedOrder.getUser().getStreetNumber()}"/>
-            <td th:utext="${notApprovedOrder.getUser().getPhoneNumber()}"/>
+            <td th:utext="${notApprovedOrder.getUser().getAddress().getCity() +', St. ' +
+            notApprovedOrder.getUser().getAddress().getStreetName() + ', no.' +
+            notApprovedOrder.getUser().getAddress().getStreetNumber() + ', Zipcode: ' +
+            notApprovedOrder.getUser().getAddress().getZipCode()}"/>
+            <td th:utext="${notApprovedOrder.getUser().getAddress().getContact()}"/>
             <td th:utext="${notApprovedOrder.getOrderDate()}"/>
             <td th:utext="${notApprovedOrder.isApproved()}"/>
 
@@ -70,9 +71,8 @@
         <tr>
             <th>Order Id</th>
             <th>User</th>
-            <th>City</th>
-            <th>Address </th>
-            <th>Contact</th>
+            <th>Address</th>
+            <th>Phone number</th>
             <th>Date</th>
             <th>Is Approved</th>
             <th>Action</th>
@@ -83,9 +83,11 @@
         <tr th:each="approvedOrder : ${approvedOrders}">
             <td th:utext="${approvedOrder.getId()}"/>
             <td th:utext="${approvedOrder.getUser().getFirstName() + ' ' + approvedOrder.getUser().getLastName()}"/>
-            <td th:utext="${approvedOrder.getUser().getCity()}"/>
-            <td th:utext="${approvedOrder.getUser().getStreet() + ' no. ' + approvedOrder.getUser().getStreetNumber()}"/>
-            <td th:utext="${approvedOrder.getUser().getPhoneNumber()}"/>
+            <td th:utext="${approvedOrder.getUser().getAddress().getCity() +', St. ' +
+            approvedOrder.getUser().getAddress().getStreetName() + ', no.' +
+            approvedOrder.getUser().getAddress().getStreetNumber() + ', Zipcode: ' +
+            approvedOrder.getUser().getAddress().getZipCode()}"/>
+            <td th:utext="${approvedOrder.getUser().getAddress().getContact()}"/>
             <td th:utext="${approvedOrder.getOrderDate()}"/>
             <td th:utext="${approvedOrder.isApproved()}"/>
 

@@ -25,10 +25,10 @@ import java.util.Optional;
 @RequestMapping("/registration")
 public class RegisterController {
 
-    private UserService userService;
-    private ConfirmationTokenRepository confirmationTokenRepository;
-    private EmailService emailService;
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final EmailService emailService;
+    private final UserRepository userRepository;
 
     @ModelAttribute("user")
     public User customerRegistration() {
@@ -43,6 +43,7 @@ public class RegisterController {
     @PostMapping
     public ModelAndView registerCustomerAccount(@ModelAttribute("user") @Valid User user,
                                                 BindingResult bindingResult, ModelAndView modelAndView) {
+
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register/registration");
