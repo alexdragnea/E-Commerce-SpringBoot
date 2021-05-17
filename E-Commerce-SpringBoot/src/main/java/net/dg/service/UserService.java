@@ -14,4 +14,5 @@ public interface UserService {
     void unblockUser(Long userId);
     void updateUser(User user, String firstName, String lastName, String password,
                     String city, String street, String streetNumber, String phoneNumber);
+    void deleteById(Long id);
 }

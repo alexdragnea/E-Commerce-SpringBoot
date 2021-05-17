@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/images/**",
+                        "/api/**",
                         "/products",
                         "/user/confirm-account/**",
                         "/user/confirm-reset/**",
@@ -64,8 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userServiceImpl).passwordEncoder(bCryptPasswordEncoder());
-//        auth.inMemoryAuthentication().withUser("user")
-//                .password("{noop}password").roles("USER");
+
     }
 
 

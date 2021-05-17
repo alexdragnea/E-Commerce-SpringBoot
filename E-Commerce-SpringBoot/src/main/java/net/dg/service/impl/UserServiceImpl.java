@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
 
         userRepository.save(user);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
