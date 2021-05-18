@@ -29,33 +29,33 @@
                     <div>
                         <label for="city">City: </label>
                         <input type="text" class="form-control" th:field="*{city}" id="city"
-                               placeholder="#city">
+                               placeholder="#city" required>
                     </div>
 
                     <div>
                         <label for="streetName">Street name: </label>
                         <input type="text" class="form-control" th:field="*{streetName}" id="streetName"
-                               placeholder="#streetName">
+                               placeholder="#streetName" required>
 
                     </div>
                     <div>
                         <label for="streetNumber">Street number: </label>
-                        <input type="text" class="form-control" th:field="*{streetNumber}" id="streetNumber"
-                               placeholder="#streetNumber">
+                        <input type="number" class="form-control" th:field="*{streetNumber}" id="streetNumber"
+                               placeholder="#streetNumber" required>
 
                     </div>
 
                     <div>
                         <label for="contact">Contact : </label>
-                        <input type="text" class="form-control" th:field="*{contact}" id="contact"
-                               placeholder="#contact">
+                        <input type="number" class="form-control" th:field="*{contact}" id="contact"
+                               placeholder="#contact" required>
 
                     </div>
 
                     <div>
                         <label for="zipCode">Zip Code : </label>
-                        <input type="text" class="form-control" th:field="*{zipCode}" id="zipCode"
-                               placeholder="#zipCode">
+                        <input type="number" class="form-control" th:field="*{zipCode}" id="zipCode"
+                               placeholder="#zipCode" required>
 
                     </div>
 

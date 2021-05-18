@@ -14,10 +14,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/account/{userId}")
-    public String updateUserInfo(@AuthenticationPrincipal User user,
+    public String updateUserInfo(@AuthenticationPrincipal @Valid User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
                                  @RequestParam String password) {

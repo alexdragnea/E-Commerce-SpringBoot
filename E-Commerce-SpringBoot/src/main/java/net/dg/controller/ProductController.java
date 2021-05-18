@@ -158,9 +158,14 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public String showProducts(Model map) {
-        List<Product> productList = productService.getAllProducts();
-        map.addAttribute("productList", productList);
+    public String showProducts(Model model, String keyword) {
+
+        if (keyword != null) {
+            model.addAttribute("productList", productService.findByKeyword(keyword));
+        } else {
+            model.addAttribute("productList", productService.getAllProducts());
+        }
+
         return "user/productlist";
     }
 

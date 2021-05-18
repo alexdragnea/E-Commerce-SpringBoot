@@ -18,10 +18,15 @@ public class MainController {
 
 
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model) {
-        List<Product> productList = productService.getAllProducts();
-        model.addAttribute("productList", productList);
+    public String home(HttpServletRequest request, Model model, String keyword) {
 
+        if (keyword != null) {
+            model.addAttribute("productList", productService.findByKeyword(keyword));
+        } else {
+
+            List<Product> productList = productService.getAllProducts();
+            model.addAttribute("productList", productList);
+        }
 
         return "user/productlist";
     }

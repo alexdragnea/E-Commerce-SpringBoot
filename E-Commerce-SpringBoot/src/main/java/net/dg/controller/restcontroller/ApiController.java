@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import net.dg.model.User;
 import net.dg.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +28,18 @@ public class ApiController {
     public Optional<User> getUserById(@PathVariable("id") Long id){
 
             return userService.findById(id);
+    }
+
+    @PatchMapping(value = "/blockuser/{id}")
+    public void blockUser(@PathVariable("id") Long id){
+
+        userService.blockUser(id);
+    }
+
+    @PatchMapping(value = "/unblockuser/{id}")
+    public void unBlockUser(@PathVariable("id") Long id){
+
+        userService.unblockUser(id);
     }
 
 }

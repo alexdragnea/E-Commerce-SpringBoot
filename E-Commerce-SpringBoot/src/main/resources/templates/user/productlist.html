@@ -68,11 +68,19 @@
             padding: 5px;
         }
 
+
     </style>
 </head>
 <body>
 
 <div th:include="./fragments/header.html"></div>
+<br>
+<form th:align="center" th:action="@{/products}" method="get">
+    <input id="txtSearch" type="text" placeholder="Search product..."
+           name="keyword" required> <input type="submit"
+                                           style="height: 0px; width: 0px; border: border border-primary; padding: 0px;"
+                                           hidefocus="true" />
+</form>
 
 <div class="product-preview-container" th:each="product : ${productList}">
     <ul>
