@@ -3,6 +3,7 @@ package net.dg.controller;
 import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -155,18 +156,6 @@ public class ProductController {
         Optional<Product> product = productService.getProductById(id);
         model.addAttribute("product", product);
         return "update_product";
-    }
-
-    @GetMapping("/products")
-    public String showProducts(Model model, String keyword) {
-
-        if (keyword != null) {
-            model.addAttribute("productList", productService.findByKeyword(keyword));
-        } else {
-            model.addAttribute("productList", productService.getAllProducts());
-        }
-
-        return "user/productlist";
     }
 
 

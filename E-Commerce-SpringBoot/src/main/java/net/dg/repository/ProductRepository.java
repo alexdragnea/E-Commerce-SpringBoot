@@ -1,6 +1,7 @@
 package net.dg.repository;
 
 import net.dg.model.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +18,5 @@ public interface ProductRepository extends
             + "or p.description like %:keyword% ",
             nativeQuery = true)
     List<Product> findByKeyword(@Param("keyword") String keyword);
+
 }

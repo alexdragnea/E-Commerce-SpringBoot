@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/images/**",
                         "/api/**",
-                        "/products",
+                        "/**",
+                        "/page/**",
                         "/user/confirm-account/**",
                         "/user/confirm-reset/**",
                         "/user/forgot-password/**",
@@ -42,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/products")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()

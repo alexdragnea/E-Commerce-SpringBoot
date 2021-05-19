@@ -86,15 +86,15 @@
     </a>
 
     <a sec:authorize="!isAuthenticated()">
-        <a th:href="@{/products}">Home</a>
+        <a th:href="@{/}">Home</a>
     </a>
 
     <a sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/products}">Home</a>
+        <a th:href="@{/}">Home</a>
     </a>
 
     <a sec:authorize="hasAuthority('USER')">
-        <a th:href="@{/products}">Home</a>
+        <a th:href="@{/}">Home</a>
     </a>
 
 
