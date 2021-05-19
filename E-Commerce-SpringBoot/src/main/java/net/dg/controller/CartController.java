@@ -28,7 +28,7 @@ public class CartController {
     private static final String APPROVED_ORDERED_PRODUCTS = "approvedOrderedProducts";
     private static final String NOT_APPROVED_ORDERED_PRODUCTS = "notApprovedOrderedProducts";
     private static final String ERROR_STRING = "errorString";
-
+    private static final String ERROR_PAGE = "error_page";
     private static final String REDIRECT_USER_CART = "redirect:/user/cart";
     private static final String USER_CART = "/user/cart";
 
@@ -62,7 +62,7 @@ public class CartController {
             model.addAttribute(TOTAL_PRICE, cartService.getTotal(productsInCart));
             model.addAttribute(APPROVED_ORDERED_PRODUCTS, orderService.getAllApprovedOrderedProductsOfUser(user));
             model.addAttribute(NOT_APPROVED_ORDERED_PRODUCTS, orderService.getAllNotApprovedOrderedProductsOfUser(user));
-            return "error_page";
+            return ERROR_PAGE;
         }
 
         return REDIRECT_USER_CART;
@@ -77,7 +77,7 @@ public class CartController {
         } catch (ProductAlreadyInCartException e) {
             e.printStackTrace();
             model.addAttribute(ERROR_STRING, e.getMessage());
-            return "error_page";
+            return ERROR_PAGE;
         }
         return REDIRECT_USER_CART;
     }
@@ -98,7 +98,7 @@ public class CartController {
         } catch (EmptyCartException | StockIsNotEnoughException | AddressNotFoundException e) {
             e.printStackTrace();
             model.addAttribute(ERROR_STRING, e.getMessage());
-            return "error_page";
+            return ERROR_PAGE;
         }
 
         return REDIRECT_USER_CART;

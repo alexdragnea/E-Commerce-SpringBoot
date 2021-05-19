@@ -1,6 +1,6 @@
 package net.dg.service;
 
-import net.dg.model.*;
+import net.dg.model.Product;
 import net.dg.model.User;
 
 import java.math.BigDecimal;
@@ -14,4 +14,5 @@ public interface CartService {
     BigDecimal getTotal(Map<Product, Integer> productsWithNeededQuantity);
     void clearProductsFromCart(User user);
     void updateNeededQuantity(User user, Long productId, Integer neededQuantity) throws Exception;
+
 }

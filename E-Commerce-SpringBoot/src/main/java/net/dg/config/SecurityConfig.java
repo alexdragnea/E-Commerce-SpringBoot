@@ -28,13 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/images/**",
                         "/api/**",
-                        "/**",
                         "/page/**",
                         "/user/confirm-account/**",
                         "/user/confirm-reset/**",
                         "/user/forgot-password/**",
-                        "/user/reset-password/**",
-                        "/product/**")
+                        "/user/reset-password/**")
                 .permitAll()
                 .antMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")

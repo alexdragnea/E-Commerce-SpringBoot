@@ -1,13 +1,17 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import net.dg.model.Product;
 import net.dg.model.User;
+import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -18,6 +22,7 @@ public class AdminController {
     private static final String REDIRECT_ADMIN_USER = "redirect:/admin/users";
 
     private final UserService userService;
+    private final ProductService productService;
 
     @GetMapping("")
     public String adminHome() {
@@ -57,7 +62,7 @@ public class AdminController {
     }
 
     @PostMapping("/account/{userId}")
-    public String updateUserInfo(@AuthenticationPrincipal User user,
+    public String updateUserInfo(@AuthenticationPrincipal @Valid User user,
                                  @RequestParam String firstName,
                                  @RequestParam String lastName,
                                  @RequestParam String password) {

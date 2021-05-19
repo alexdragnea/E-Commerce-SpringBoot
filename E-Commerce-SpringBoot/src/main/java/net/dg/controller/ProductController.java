@@ -3,7 +3,6 @@ package net.dg.controller;
 import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -148,14 +147,6 @@ public class ProductController {
             e.printStackTrace();
             return REDIRECT_ADMIN_PRODUCTS;
         }
-    }
-
-    @GetMapping("/showFormForUpdateProduct/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
-
-        Optional<Product> product = productService.getProductById(id);
-        model.addAttribute("product", product);
-        return "update_product";
     }
 
 
