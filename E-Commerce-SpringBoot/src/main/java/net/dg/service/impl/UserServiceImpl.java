@@ -1,11 +1,11 @@
 package net.dg.service.impl;
 
+import lombok.AllArgsConstructor;
 import net.dg.model.Address;
 import net.dg.model.Cart;
 import net.dg.model.User;
 import net.dg.repository.UserRepository;
 import net.dg.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,15 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService  {
 
-    UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
 
     @Override
@@ -105,6 +101,5 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
 
         userRepository.save(user);
     }
-
 
 }

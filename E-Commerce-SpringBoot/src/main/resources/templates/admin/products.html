@@ -1,63 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>E-Commerce</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>E-Commerce</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
 
-	<div th:include="./fragments/header.html"></div>
-	<br>
+<div th:include="./fragments/header.html"></div>
+<br>
 
-	<div class="container">
-		<table id="example" class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Product No.</th>
-					<th>Name</th>
-					<th>Image</th>
-					<th>Description</th>
-					<th>Price</th>
-					<th>Created date</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tr th:each="productList, hh : ${product}">
-				<td th:text="${productList.id}"></td>
-				<td th:text="${productList.name}"></td>
-				<td><img
-					th:src="@{${'/product/display/'+ productList.id}}"
-					class="card img-fluid" style="width: 90px" alt="center" /></td>
-				<td th:text="${productList.description}"></td>
-				<td th:text="${productList.price} + '$'"></td>
-				<td
-					th:text="${#dates.format({productList.createDate}, 'dd-MM-yyyy')}" /></td>
+<div class="container">
+    <table id="example" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Product No.</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Created date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="productList, hh : ${productList}">
+            <td th:text="${productList.id}"></td>
+            <td th:text="${productList.name}"></td>
+            <td><img
+                    th:src="@{${'/product/display/'+ productList.id}}"
+                    class="card img-fluid" style="width: 90px" alt="center"/></td>
+            <td th:text="${productList.description}"></td>
+            <td th:text="${productList.price} + '$'"></td>
+            <td
+                    th:text="${#dates.format({productList.createDate}, 'dd-MM-yyyy')}"/>
+            </td>
 
-				<td><a
-					th:href="@{/product/productDetails(id=${productList.id})}"
-					class="btn btn-info text-right" target="_blank">View</a>
-					<a
-					th:href="@{/admin/deleteProduct/{id}(id=${productList.id})}"
-					class="btn btn-danger" target="_blank">Delete</a></td>
+            <td><a
+                    th:href="@{/product/productDetails(id=${productList.id})}"
+                    class="btn btn-info text-right" target="_blank">View</a>
+                <a
+                        th:href="@{/admin/deleteProduct/{id}(id=${productList.id})}"
+                        class="btn btn-danger" target="_blank">Delete</a></td>
 
 
+        </tr>
+        </tbody>
+    </table>
+    <div align="center">
+        <a th:href="@{/admin/showNewProductForm}" class="btn btn-primary">
+            Add Product </a>
+    </div>
 
-			</tr>
-			</tbody>
-		</table>
-		<div align="center">
-			<a th:href="@{/admin/showNewProductForm}" class="btn btn-primary">
-				Add Product </a>
-		</div>
-		<br>
-		<br>
+</div>
 
-	</div>
+<hr>
+<div th:if="${totalPages > 1}">
+    <div class="row col-sm-8">
+        <div class="col-sm-2">
+            <strong>Total Pages: [[${totalItems}]]</strong>
+        </div>
+        <div class="col-sm-1">
+     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/admin/products/show/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp;
+     </span>
+        </div>
+        <div th:align="center" class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/admin/products/show/page/' + ${currentPage + 1}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
 
-	<div th:include="./fragments/footer.html"></div>
+        <div th:align="center" class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/admin/products/show/page/' + ${totalPages}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<div th:include="./fragments/footer.html"></div>
 </body>
 </html>

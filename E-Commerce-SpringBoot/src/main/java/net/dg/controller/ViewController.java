@@ -1,6 +1,7 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import net.dg.exceptions.ProductNotFoundException;
 import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.data.domain.Page;
@@ -14,26 +15,33 @@ import java.util.List;
 
 @AllArgsConstructor
 @Controller
-public class MainController {
+public class ViewController {
 
     private final ProductService productService;
 
 
     @GetMapping("/")
-    public String home(Model model, String keyword) {
+    public String home(Model model, String keyword) throws Exception {
 
         if (keyword != null) {
-            model.addAttribute("productList", productService.findByKeyword(keyword));
-            return "user/productlist";
+            try {
+                model.addAttribute("productList", productService.findByKeyword(keyword));
+                return "user/productlist";
+            } catch (ProductNotFoundException e) {
+                e.printStackTrace();
+                model.addAttribute("errorString", e.getMessage());
+                return "error_page";
+            }
+
         }
 
         return findPaginated(model, 1);
-
     }
+
 
     @RequestMapping("/page/{pageNum}")
     public String findPaginated(Model model,
-                           @PathVariable(name = "pageNum") int pageNum) {
+                                @PathVariable(name = "pageNum") int pageNum) {
 
         Page<Product> page = productService.listAll(pageNum);
 
@@ -45,6 +53,16 @@ public class MainController {
         model.addAttribute("productList", productList);
 
         return "user/productlist";
+    }
+
+    @RequestMapping("/login")
+    public String userLogin() {
+        return "/login/login";
+    }
+
+    @GetMapping("/403")
+    public String error403() {
+        return "error403";
     }
 
 }

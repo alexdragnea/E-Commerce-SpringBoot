@@ -1,5 +1,6 @@
 package net.dg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,6 +37,7 @@ public class Order {
     private Cart cart;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @JsonIgnore
     private Set<OrderedProduct> orderedProducts;
 
     @Column(name = "isApproved")

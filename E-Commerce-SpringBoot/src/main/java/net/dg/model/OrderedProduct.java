@@ -1,5 +1,6 @@
 package net.dg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,6 +46,7 @@ public class OrderedProduct {
 
     @ManyToOne
     @JoinColumn(name="order_id")
+    @JsonIgnore
     private Order order;
 
 }

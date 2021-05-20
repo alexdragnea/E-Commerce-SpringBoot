@@ -130,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
 
         @Override
         public void approveOrder (Long orderId) throws Exception {
-            Order order = orderRepository.findById(orderId).orElseThrow(Exception::new);
+            Order order = orderRepository.findById(orderId).orElseThrow((Exception::new));
 
             Set<OrderedProduct> orderedProducts = order.getOrderedProducts();
             for (OrderedProduct x : orderedProducts) {

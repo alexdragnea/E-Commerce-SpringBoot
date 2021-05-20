@@ -3,6 +3,7 @@ package net.dg.controller;
 import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,9 +40,23 @@ public class ProductController {
     }
 
     @GetMapping("/admin/products/show")
-    public String show(Model map) {
-        List<Product> product = productService.getAllProducts();
-        map.addAttribute("product", product);
+    public String show(Model model) {
+        return findPaginated(model, 1);
+    }
+
+    @RequestMapping("/admin/products/show/page/{pageNum}")
+    public String findPaginated(Model model,
+                                @PathVariable(name = "pageNum") int pageNum) {
+
+        Page<Product> page = productService.listAll(pageNum);
+
+        List<Product> productList = page.getContent();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("productList", productList);
+
         return "admin/products";
     }
 
@@ -115,7 +130,7 @@ public class ProductController {
     @GetMapping("/product/display/{id}")
     @ResponseBody
     public void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
-            throws ServletException, IOException {
+            throws IOException {
 
         if (product.isPresent()) {
 

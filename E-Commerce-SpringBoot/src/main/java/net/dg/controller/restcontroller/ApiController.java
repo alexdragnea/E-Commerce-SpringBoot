@@ -2,8 +2,10 @@ package net.dg.controller.restcontroller;
 
 import lombok.AllArgsConstructor;
 import net.dg.model.Order;
+import net.dg.model.OrderedProduct;
 import net.dg.model.Product;
 import net.dg.model.User;
+import net.dg.repository.OrderRepository;
 import net.dg.service.OrderService;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
@@ -22,6 +24,7 @@ public class ApiController {
 
     private final UserService userService;
     private final ProductService productService;
+    private final OrderRepository orderRepository;
     private final OrderService orderService;
 
     @GetMapping(value = "/users")
@@ -62,6 +65,12 @@ public class ApiController {
             return new ResponseEntity<>(productById, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/getorderedproducts/{id}")
+    public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception{
+
+        return orderService.findAllOrderedProductByOrderId(id);
     }
 
 

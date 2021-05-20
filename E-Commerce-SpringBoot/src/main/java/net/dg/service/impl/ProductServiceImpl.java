@@ -1,5 +1,6 @@
 package net.dg.service.impl;
 
+import net.dg.exceptions.ProductNotFoundException;
 import net.dg.model.Product;
 import net.dg.repository.ProductRepository;
 import net.dg.service.ProductService;
@@ -8,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +50,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByKeyword(String keyword) {
+    public List<Product> findByKeyword(String keyword) throws Exception{
+
+        if(productRepository.findByKeyword(keyword).isEmpty()){
+            throw new ProductNotFoundException();
+        }
+
         return productRepository.findByKeyword(keyword);
     }
 
