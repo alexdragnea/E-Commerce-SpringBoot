@@ -1,17 +1,12 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.Product;
 import net.dg.model.User;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.Date;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -55,20 +50,5 @@ public class AdminController {
         return REDIRECT_ADMIN_USER;
     }
 
-    @GetMapping("/account")
-    public String editOwnAccount(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
-        return "/admin/admin_account";
-    }
-
-    @PostMapping("/account/{userId}")
-    public String updateUserInfo(@AuthenticationPrincipal @Valid User user,
-                                 @RequestParam String firstName,
-                                 @RequestParam String lastName,
-                                 @RequestParam String password) {
-
-        userService.updateUser(user, firstName, lastName, password);
-        return "redirect:/admin";
-    }
 
 }

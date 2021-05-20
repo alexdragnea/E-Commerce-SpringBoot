@@ -2,7 +2,6 @@ package net.dg.controller;
 
 import lombok.AllArgsConstructor;
 import net.dg.model.ConfirmationToken;
-import net.dg.model.Product;
 import net.dg.model.User;
 import net.dg.repository.ConfirmationTokenRepository;
 import net.dg.repository.UserRepository;
@@ -16,10 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -39,14 +34,6 @@ public class UserController {
 
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    @GetMapping("/")
-    public String userHome(@AuthenticationPrincipal User user, HttpServletRequest request, Model model) {
-        List<Product> products = productService.getAllProducts();
-
-        model.addAttribute("products", products);
-
-        return "/user/user_home";
-    }
 
     @GetMapping("/account")
     public String editOwnAccount(@AuthenticationPrincipal User user, Model model) {
@@ -105,14 +92,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
+    @GetMapping("/forgot-password")
     public ModelAndView displayResetPassword(ModelAndView modelAndView, User user) {
         modelAndView.addObject("user", user);
         modelAndView.setViewName(FORGOT_PASSWORD);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+    @PostMapping("/forgot-password")
     public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) {
         Optional<User> optional = userRepository.findByEmail(user.getEmail());
 

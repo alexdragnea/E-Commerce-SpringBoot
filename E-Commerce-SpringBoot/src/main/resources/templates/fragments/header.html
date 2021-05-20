@@ -57,12 +57,8 @@
         <a th:href="@{/logout}">Logout</a>
     </a>
 
-    <a sec:authorize="hasAuthority('ADMIN')">
+    <a sec:authorize="hasAuthority('ROLE_ADMIN')">
         <a th:href="@{/admin}"><strong>Admin</strong></a>
-    </a>
-
-    <a sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/account}">Account</a>
     </a>
 
     <a sec:authorize="hasAuthority('USER')">
@@ -89,7 +85,7 @@
         <a th:href="@{/}">Home</a>
     </a>
 
-    <a sec:authorize="hasAuthority('ADMIN')">
+    <a sec:authorize="hasAuthority('ROLE_ADMIN')">
         <a th:href="@{/}">Home</a>
     </a>
 

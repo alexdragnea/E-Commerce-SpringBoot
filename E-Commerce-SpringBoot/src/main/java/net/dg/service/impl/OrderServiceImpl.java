@@ -40,9 +40,8 @@ public class OrderServiceImpl implements OrderService {
         if (productsForOrder.isEmpty()) {
             throw new EmptyCartException();
         }
-        if (existingAddress.getCity() == null || existingAddress.getStreetName() == null ||
-                existingAddress.getStreetNumber() == null || existingAddress.getContact() == null ||
-                existingAddress.getZipCode() == null) {
+
+        if (existingAddress.isEmpty()) {
             throw new AddressNotFoundException();
         } else {
 

@@ -93,6 +93,7 @@ public class ProductController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             byte[] imageData = file.getBytes();
             Product product = new Product();
             product.setName(names[0]);
