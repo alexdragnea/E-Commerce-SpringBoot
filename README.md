@@ -39,10 +39,4 @@ There are two types of users :
 - Using a query for a simple search functionality.
 
 # Pictures
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/aPOtHgA" data-context="false" ><a href="//imgur.com/a/aPOtHgA"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-<img src="https://imgur.com/zyPy9LK">
-<img src="https://imgur.com/2DRWnLG.png">
-<img src="https://imgur.com/BMqSF4r.png">
-<img src="https://imgur.com/tLUPLLk.png">
-<img src="https://imgur.com/wZ7bQ9s.png">
-<img src="https://imgur.com/0MZKZrE.png">
+https://imgur.com/a/aPOtHgA
