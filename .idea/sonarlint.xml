@@ -4,6 +4,28 @@
     <option name="fileExclusions">
       <list>
         <option value="FILE:.mvn/wrapper/MavenWrapperDownloader.java" />
+        <option value="FILE:src/main/resources/templates/admin/admin_home.html" />
+        <option value="FILE:bin/src/main/resources/templates/resources/adminheader.html" />
+        <option value="FILE:src/main/resources/templates/user/cart.html" />
+        <option value="FILE:bin/src/main/resources/templates/resources/customerheader.html" />
+        <option value="FILE:bin/src/main/resources/templates/login/adminlogin.html" />
+        <option value="FILE:bin/src/main/resources/templates/login/customerlogin.html" />
+        <option value="FILE:bin/src/main/java/customers.html" />
+        <option value="FILE:bin/src/main/resources/templates/resources/header.html" />
+        <option value="FILE:src/main/resources/templates/fragments/header.html" />
+        <option value="FILE:src/main/resources/templates/login/login.html" />
+        <option value="FILE:src/main/resources/templates/admin/order_info.html" />
+        <option value="FILE:src/main/resources/templates/admin/orders.html" />
+        <option value="FILE:src/main/resources/templates/user/productdetails.html" />
+        <option value="FILE:src/main/resources/templates/user/productlist.html" />
+        <option value="FILE:bin/src/main/resources/templates/products.html" />
+        <option value="FILE:src/main/resources/templates/admin/products.html" />
+        <option value="FILE:src/main/resources/templates/register/succesfulRegistration.html" />
+        <option value="FILE:src/main/resources/templates/user/user_account.html" />
+        <option value="FILE:src/main/resources/templates/user/user_address.html" />
+        <option value="FILE:src/main/resources/templates/user/user_home.html" />
+        <option value="FILE:src/main/resources/templates/admin/users.html" />
+        <option value="FILE:src/test/java/net/dg/ECommerceSpringBootApplicationTests.java" />
       </list>
     </option>
   </component>

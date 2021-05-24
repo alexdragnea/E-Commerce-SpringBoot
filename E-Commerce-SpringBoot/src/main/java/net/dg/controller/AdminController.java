@@ -1,12 +1,14 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.User;
+import net.dg.model.*;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @AllArgsConstructor

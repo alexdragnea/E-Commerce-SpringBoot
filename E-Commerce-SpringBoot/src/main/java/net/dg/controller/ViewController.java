@@ -21,7 +21,7 @@ public class ViewController {
 
 
     @GetMapping("/")
-    public String home(Model model, String keyword) throws Exception {
+    public String home(Model model, String keyword) throws ProductNotFoundException {
 
         if (keyword != null) {
             try {

@@ -1,21 +1,22 @@
 package net.dg.service.impl;
 
-import net.dg.exceptions.ProductNotFoundException;
+import lombok.AllArgsConstructor;
+import net.dg.exceptions.*;
 import net.dg.model.Product;
 import net.dg.repository.ProductRepository;
 import net.dg.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
     @Override
@@ -50,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByKeyword(String keyword) throws Exception{
+    public List<Product> findByKeyword(String keyword) throws ProductNotFoundException {
 
         if(productRepository.findByKeyword(keyword).isEmpty()){
             throw new ProductNotFoundException();

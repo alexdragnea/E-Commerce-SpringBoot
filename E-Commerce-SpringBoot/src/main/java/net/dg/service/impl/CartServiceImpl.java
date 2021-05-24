@@ -38,10 +38,10 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     @Override
-    public void addProductToCart(User user, Long productId) throws Exception {
-        Product product = productService.getProductById(productId).orElseThrow(Exception::new);
+    public void addProductToCart(User user, Long productId) throws ProductAlreadyInCartException {
+        Product product = productService.getProductById(productId).orElseThrow(ProductAlreadyInCartException::new);
 
-        Cart cart = cartRepository.findById(user.getCart().getId()).orElseThrow(Exception::new);
+        Cart cart = cartRepository.findById(user.getCart().getId()).orElseThrow(ProductAlreadyInCartException::new);
 
         Optional<InCartProduct> optionalInCartProduct = inCartProductRepository.findByCartAndProductId(user.getCart(), productId);
         if (optionalInCartProduct.isPresent()) {
@@ -78,9 +78,9 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void updateNeededQuantity(User user, Long productId, Integer neededQuantity) throws Exception{
+    public void updateNeededQuantity(User user, Long productId, Integer neededQuantity) throws StockIsNotEnoughException{
         InCartProduct inCartProduct = inCartProductRepository
-                .findByCartAndProductId(user.getCart(), productId).orElseThrow(Exception::new);
+                .findByCartAndProductId(user.getCart(), productId).orElseThrow(StockIsNotEnoughException::new);
         Product product = productRepository.getOne(productId);
 
         if(neededQuantity <= product.getQuantity()) {

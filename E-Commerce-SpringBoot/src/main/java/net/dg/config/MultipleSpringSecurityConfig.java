@@ -16,6 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class MultipleSpringSecurityConfig {
 
+    private static final String ADMIN = "ADMIN";
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,7 +32,7 @@ public class MultipleSpringSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests().antMatchers(
-                    "/admin/**", "/admin*").hasRole("ADMIN")
+                    "/admin/**", "/admin*").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
                     "/", "/registration/**",
@@ -70,7 +72,7 @@ public class MultipleSpringSecurityConfig {
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
             auth.inMemoryAuthentication().withUser("admin@admin.com").
-                    password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN");
+                    password(bCryptPasswordEncoder().encode("admin")).roles(ADMIN);
 
         }
 
@@ -88,7 +90,7 @@ public class MultipleSpringSecurityConfig {
             http
                     .authorizeRequests().antMatchers(
                     "/user/**", "/user**").hasRole("USER")
-                    .antMatchers("/admin/**", "/admin*").hasRole("ADMIN")
+                    .antMatchers("/admin/**", "/admin*").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
                     "/", "/registration/**",

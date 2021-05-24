@@ -31,6 +31,7 @@
         </tr>
         </tbody>
     </table>
+    <p align="right" th:text="'Total sum: ' + ${totalPrice} + '$'"></p>
 
     <a th:align="right" th:href="@{'/admin/orders'}" class="col-md-1">
         <button type="button" class="btn btn-info" value="Order" style="float: right">Back</button>

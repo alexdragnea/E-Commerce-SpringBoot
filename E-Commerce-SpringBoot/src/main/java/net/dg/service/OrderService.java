@@ -1,6 +1,9 @@
 package net.dg.service;
 
 
+import net.dg.exceptions.AddressNotFoundException;
+import net.dg.exceptions.EmptyCartException;
+import net.dg.exceptions.StockIsNotEnoughException;
 import net.dg.model.Order;
 import net.dg.model.OrderedProduct;
 import net.dg.model.User;
@@ -12,7 +15,7 @@ import java.util.Set;
 
 public interface OrderService {
 
-    void makeOrder(User user) throws Exception;
+    void makeOrder(User user) throws EmptyCartException, StockIsNotEnoughException, AddressNotFoundException;
     Set<OrderedProduct> getAllOrderedProductsOfUser(User user);
     List<OrderedProduct> getAllApprovedOrderedProductsOfUser(User user);
     List<OrderedProduct> getAllNotApprovedOrderedProductsOfUser(User user);

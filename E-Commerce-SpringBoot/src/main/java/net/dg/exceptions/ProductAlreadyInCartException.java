@@ -1,8 +1,8 @@
 package net.dg.exceptions;
 
 public class ProductAlreadyInCartException extends RuntimeException {
-    static final String message = "Product already in cart.";
+    static final String MESSAGE = "Product is already in cart.";
 
-    public ProductAlreadyInCartException(){ super(message); }
+    public ProductAlreadyInCartException(){ super(MESSAGE); }
 
 }

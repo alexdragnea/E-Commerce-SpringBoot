@@ -1,6 +1,7 @@
 package net.dg.controller.restcontroller;
 
 import lombok.AllArgsConstructor;
+import net.dg.exceptions.ProductNotFoundException;
 import net.dg.model.Order;
 import net.dg.model.OrderedProduct;
 import net.dg.model.Product;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,9 +36,15 @@ public class ApiController {
 
 
     @PostMapping("/addproduct")
-    public ResponseEntity<Void> addUser(@RequestBody Product product) {
+    public ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/getproductkeyboard/{keyboard}")
+    public List<Product> getProductByKeyboard(@PathVariable String keyboard) throws ProductNotFoundException {
+
+        return productService.findByKeyword(keyboard);
     }
 
     @DeleteMapping(path = "/deleteuser/{id}")
@@ -60,7 +68,7 @@ public class ApiController {
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
 
         Optional<Product> optional = productService.getProductById(id);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             Product productById = optional.get();
             return new ResponseEntity<>(productById, HttpStatus.CREATED);
         }
@@ -68,7 +76,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/getorderedproducts/{id}")
-    public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception{
+    public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception {
 
         return orderService.findAllOrderedProductByOrderId(id);
     }
