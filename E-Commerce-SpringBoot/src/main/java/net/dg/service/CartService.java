@@ -2,8 +2,8 @@ package net.dg.service;
 
 import net.dg.exceptions.ProductAlreadyInCartException;
 import net.dg.exceptions.StockIsNotEnoughException;
-import net.dg.model.Product;
-import net.dg.model.User;
+import net.dg.entity.Product;
+import net.dg.entity.User;
 
 import java.math.BigDecimal;
 import java.util.Map;

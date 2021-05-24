@@ -1,7 +1,7 @@
 package net.dg.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import net.dg.model.Product;
+import net.dg.entity.Product;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;

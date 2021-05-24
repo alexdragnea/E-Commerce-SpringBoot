@@ -1,11 +1,11 @@
 package net.dg.controller.restcontroller;
 
 import lombok.AllArgsConstructor;
+import net.dg.entity.Order;
+import net.dg.entity.OrderedProduct;
+import net.dg.entity.Product;
+import net.dg.entity.User;
 import net.dg.exceptions.ProductNotFoundException;
-import net.dg.model.Order;
-import net.dg.model.OrderedProduct;
-import net.dg.model.Product;
-import net.dg.model.User;
 import net.dg.repository.OrderRepository;
 import net.dg.service.OrderService;
 import net.dg.service.ProductService;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;

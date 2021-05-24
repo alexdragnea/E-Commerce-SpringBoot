@@ -1,4 +1,4 @@
-package net.dg.model;
+package net.dg.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

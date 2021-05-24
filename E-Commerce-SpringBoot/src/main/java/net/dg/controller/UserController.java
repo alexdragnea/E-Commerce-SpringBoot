@@ -1,8 +1,8 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.ConfirmationToken;
-import net.dg.model.User;
+import net.dg.entity.ConfirmationToken;
+import net.dg.entity.User;
 import net.dg.repository.ConfirmationTokenRepository;
 import net.dg.repository.UserRepository;
 import net.dg.service.EmailService;

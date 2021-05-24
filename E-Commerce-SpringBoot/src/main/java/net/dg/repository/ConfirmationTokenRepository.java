@@ -1,6 +1,6 @@
 package net.dg.repository;
 
-import net.dg.model.ConfirmationToken;
+import net.dg.entity.ConfirmationToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

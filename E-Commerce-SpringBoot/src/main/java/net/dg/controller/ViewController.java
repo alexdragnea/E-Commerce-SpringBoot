@@ -1,8 +1,8 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import net.dg.entity.Product;
 import net.dg.exceptions.ProductNotFoundException;
-import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 
 @AllArgsConstructor

@@ -4,9 +4,9 @@ package net.dg.service;
 import net.dg.exceptions.AddressNotFoundException;
 import net.dg.exceptions.EmptyCartException;
 import net.dg.exceptions.StockIsNotEnoughException;
-import net.dg.model.Order;
-import net.dg.model.OrderedProduct;
-import net.dg.model.User;
+import net.dg.entity.Order;
+import net.dg.entity.OrderedProduct;
+import net.dg.entity.User;
 
 import java.math.BigDecimal;
 import java.util.List;

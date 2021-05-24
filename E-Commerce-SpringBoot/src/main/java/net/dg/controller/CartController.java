@@ -1,9 +1,9 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import net.dg.entity.Product;
+import net.dg.entity.User;
 import net.dg.exceptions.*;
-import net.dg.model.Product;
-import net.dg.model.User;
 import net.dg.service.CartService;
 import net.dg.service.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

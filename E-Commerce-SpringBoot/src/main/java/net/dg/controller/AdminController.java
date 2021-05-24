@@ -1,7 +1,7 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.*;
+import net.dg.entity.User;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.stereotype.Controller;

@@ -2,7 +2,7 @@ package net.dg.service.impl;
 
 import lombok.AllArgsConstructor;
 import net.dg.exceptions.*;
-import net.dg.model.Product;
+import net.dg.entity.Product;
 import net.dg.repository.ProductRepository;
 import net.dg.service.ProductService;
 import org.springframework.data.domain.Page;

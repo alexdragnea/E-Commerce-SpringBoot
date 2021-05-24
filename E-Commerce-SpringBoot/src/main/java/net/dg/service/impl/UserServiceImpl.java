@@ -1,9 +1,9 @@
 package net.dg.service.impl;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.Address;
-import net.dg.model.Cart;
-import net.dg.model.User;
+import net.dg.entity.Address;
+import net.dg.entity.Cart;
+import net.dg.entity.User;
 import net.dg.repository.UserRepository;
 import net.dg.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;

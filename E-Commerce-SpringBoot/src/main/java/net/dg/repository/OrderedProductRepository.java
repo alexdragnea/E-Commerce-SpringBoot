@@ -1,8 +1,8 @@
 package net.dg.repository;
 
 
-import net.dg.model.Order;
-import net.dg.model.OrderedProduct;
+import net.dg.entity.Order;
+import net.dg.entity.OrderedProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

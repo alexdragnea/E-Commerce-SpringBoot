@@ -1,7 +1,7 @@
 package net.dg.service;
 
 import net.dg.exceptions.ProductNotFoundException;
-import net.dg.model.*;
+import net.dg.entity.*;
 import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.Optional;

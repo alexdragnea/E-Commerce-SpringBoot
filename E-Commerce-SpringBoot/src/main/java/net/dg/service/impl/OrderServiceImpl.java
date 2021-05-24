@@ -1,9 +1,10 @@
 package net.dg.service.impl;
 
+import lombok.AllArgsConstructor;
 import net.dg.exceptions.AddressNotFoundException;
 import net.dg.exceptions.EmptyCartException;
 import net.dg.exceptions.StockIsNotEnoughException;
-import net.dg.model.*;
+import net.dg.entity.*;
 import net.dg.repository.OrderRepository;
 import net.dg.repository.OrderedProductRepository;
 import net.dg.service.CartService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.*;
 
+@AllArgsConstructor
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -23,15 +25,6 @@ public class OrderServiceImpl implements OrderService {
     private final CartService cartService;
     private final ProductService productService;
 
-    @Autowired
-    public OrderServiceImpl(OrderedProductRepository orderedProductRepository,
-                            OrderRepository orderRepository,
-                            CartService cartService, ProductService productService) {
-        this.orderedProductRepository = orderedProductRepository;
-        this.orderRepository = orderRepository;
-        this.cartService = cartService;
-        this.productService = productService;
-    }
 
     @Override
     public void makeOrder(User user) throws EmptyCartException, StockIsNotEnoughException, AddressNotFoundException {

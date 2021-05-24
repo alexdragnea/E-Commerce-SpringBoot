@@ -1,9 +1,9 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
-import net.dg.model.Order;
-import net.dg.model.OrderedProduct;
-import net.dg.model.User;
+import net.dg.entity.Order;
+import net.dg.entity.OrderedProduct;
+import net.dg.entity.User;
 import net.dg.service.EmailService;
 import net.dg.service.OrderService;
 import net.dg.service.UserService;
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.Optional;
 import java.util.Set;
 
