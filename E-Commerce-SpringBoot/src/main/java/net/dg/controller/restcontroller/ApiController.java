@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,8 +42,14 @@ public class ApiController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/getproductkeyboard/{keyboard}")
-    public List<Product> getProductByKeyboard(@PathVariable String keyboard) throws ProductNotFoundException {
+    @PostMapping("/adduser")
+    public ResponseEntity<Void> addUser(@Valid @RequestBody User user) {
+        userService.saveNewUser(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/getproductsfromkeyword/{keyboard}")
+    public List<Product> getProductsBykeyword(@PathVariable String keyboard) throws ProductNotFoundException {
 
         return productService.findByKeyword(keyboard);
     }

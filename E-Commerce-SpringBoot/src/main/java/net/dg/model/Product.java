@@ -1,8 +1,6 @@
 package net.dg.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,7 +9,8 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 
 @Entity
 @Table(name = "products")
@@ -36,4 +35,15 @@ public class Product {
 	@Column(name = "quantity")
 	private Integer quantity;
 
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				", price=" + price +
+				", createDate=" + createDate +
+				", quantity=" + quantity +
+				'}';
+	}
 }

@@ -1,5 +1,6 @@
 package net.dg.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.dg.model.Product;
 import net.dg.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+@Slf4j
 @Controller
 public class ProductController {
 
@@ -81,7 +83,11 @@ public class ProductController {
         try {
 
             String uploadDirectory = request.getServletContext().getRealPath(uploadFolder);
+            log.info("uploadDirectory:: " + uploadDirectory);
+
             String fileName = file.getOriginalFilename();
+            log.info("FileName: " + file.getOriginalFilename());
+
             String filePath = Paths.get(uploadDirectory, fileName).toString();
 
             if (fileName == null || fileName.contains("..")) {
@@ -92,6 +98,11 @@ public class ProductController {
             String[] names = name.split(",");
             String[] descriptions = description.split(",");
             Date createDate = new Date();
+
+            log.info("Name: " + names[0] + " " + filePath);
+            log.info("Description: " + descriptions[0]);
+            log.info("Price: " + price);
+            log.info("Publishing date: " + createDate);
 
             try {
 
@@ -121,6 +132,7 @@ public class ProductController {
             return new ResponseEntity<>("Product Saved With File - " + fileName, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            log.info("Exception: " + e);
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -130,6 +142,8 @@ public class ProductController {
     @ResponseBody
     public void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
             throws IOException {
+
+        log.info("Product id: " + id);
 
         if (product.isPresent()) {
 
@@ -147,6 +161,7 @@ public class ProductController {
             if (id != 0) {
                 product = productService.getProductById(id);
 
+                log.info("Product: " + product);
 
                 if (product.isPresent()) {
                     model.addAttribute("id", product.get().getId());
