@@ -2,7 +2,7 @@
 Simple demo E-Commerce application with Spring boot.
 
 # About
-E-Commerce is a demo project which puts in practice everything i learned during School-For-Java Bootcamp from Endava and on my own.This projects is based on Spring Boot and uses other spring modules like Spring Security.
+E-Commerce is a demo project which puts in practice what I learned during School-For-Java Bootcamp from Endava and on my own.This projects is based on Spring Boot and uses other spring modules like Spring Security.
 
 For demonstration purpose I created a Rest Controller that calls diffrent methods from the implementation like adding products/users from the body to retrieving lists of users, products based on the primary keys and more.
 
