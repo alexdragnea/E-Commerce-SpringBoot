@@ -20,15 +20,29 @@ There are two types of users :
 - Java 11
 - Maven 
 - Thymeleaf Engine 
+- JavaScript
 - Spring Security with two configuration for admin and user role
 - Html & CSS 
 - Bootstrap 5.0
 - Hibernate 
 
 # Features 
-- Using spring-boot-starter-mail Sending emails with unique tokens for account activation / reseting password, for order confirmations (spring-boot-starter-mail).
-- Using javax.validation API for defining constraints for user entity in the registration process.
-- Using lombok for the boilerplate.
-- Using sl4j for loggin the process of adding the products.
-- Using multipart to upload only a single photo of a product.
+- Using Spring-boot-starter-mail for seding emails with unique tokens for account activation / reseting password, for order confirmations.
+- Using Javax.validation API for defining constraints for user entity in the registration process.
+- Using Lombok for the boilerplate code.
+- Using Sl4j for loggin the process of adding the products.
+- Using Multipart to upload only a single photo of a product.
+- Using SonarLint for eliminating bad practices and most coding smells problems.
+- Using MVC design pattern.
+- Using JpaRepository for implementing pagination of the products.
+- Using BCrypt for hasing the passwords.
+- Using a query for a simple search functionality.
 
+# Pictures
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/aPOtHgA" data-context="false" ><a href="//imgur.com/a/aPOtHgA"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<img src="https://imgur.com/zyPy9LK">
+<img src="https://imgur.com/2DRWnLG.png">
+<img src="https://imgur.com/BMqSF4r.png">
+<img src="https://imgur.com/tLUPLLk.png">
+<img src="https://imgur.com/wZ7bQ9s.png">
+<img src="https://imgur.com/0MZKZrE.png">
