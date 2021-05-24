@@ -15,7 +15,7 @@ There are two types of users :
   - password : admin
 
 # Technologies
-- Spring Boot 2.4..
+- Spring Boot 2.4.3
 - Spring Security
 - Java 11
 - Maven 
