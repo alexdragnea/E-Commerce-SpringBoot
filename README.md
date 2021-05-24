@@ -39,5 +39,4 @@ There are two types of users :
 - Using a query for a simple search functionality.
 
 # Pictures
-https://imgur.com/a/aPOtHgA
-<img src="https://imgur.com/a/aPOtHgA.png">
+[img]https://i.imgur.com/oQ2Ptef.png[/img]
