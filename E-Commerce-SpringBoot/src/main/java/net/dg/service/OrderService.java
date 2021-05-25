@@ -7,7 +7,6 @@ import net.dg.exceptions.StockIsNotEnoughException;
 import net.dg.entity.Order;
 import net.dg.entity.OrderedProduct;
 import net.dg.entity.User;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;

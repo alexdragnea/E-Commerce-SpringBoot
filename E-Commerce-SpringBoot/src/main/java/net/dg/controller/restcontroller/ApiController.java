@@ -1,5 +1,6 @@
 package net.dg.controller.restcontroller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import net.dg.entity.Order;
 import net.dg.entity.OrderedProduct;
@@ -12,10 +13,13 @@ import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,30 +39,45 @@ public class ApiController {
     }
 
 
-    @PostMapping("/addproduct")
+    @PostMapping("/addProduct")
     public ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/adduser")
+    @PostMapping("/addUser")
     public ResponseEntity<Void> addUser(@Valid @RequestBody User user) {
         userService.saveNewUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/getproductsfromkeyword/{keyboard}")
-    public List<Product> getProductsBykeyword(@PathVariable String keyboard) throws ProductNotFoundException {
+    @PatchMapping(path = "/updateUser/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateUser(@PathVariable Long id, @RequestBody Map<String, Object> requestBody) {
 
-        return productService.findByKeyword(keyboard);
+        requestBody.put("id", id);
+        ObjectMapper objectMapper = new ObjectMapper();
+        User userToBeUpdated = objectMapper.convertValue(requestBody, User.class);
+        userService.saveNewUser(userToBeUpdated);
     }
 
-    @DeleteMapping(path = "/deleteuser/{id}")
+    @GetMapping(value = "/getProductsByKeyword/{keyword}")
+    public List<Product> getProductsBykeyword(@PathVariable String keyword) throws ProductNotFoundException {
+
+        return productService.findByKeyword(keyword);
+    }
+
+    @DeleteMapping(path = "/deleteUser/{id}")
     public void deletePerson(@PathVariable Long id) {
         userService.deleteById(id);
     }
 
-    @GetMapping(value = "/getuser/{id}")
+    @DeleteMapping(path = "/deleteProduct/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProductById(id);
+    }
+
+    @GetMapping(value = "/getUser/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
 
         Optional<User> optional = userService.findById(id);
@@ -70,7 +89,7 @@ public class ApiController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/getproduct/{id}")
+    @GetMapping(value = "/getProduct/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
 
         Optional<Product> optional = productService.getProductById(id);
@@ -81,7 +100,7 @@ public class ApiController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/getorderedproducts/{id}")
+    @GetMapping(value = "/getOrderedProducts/{id}")
     public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception {
 
         return orderService.findAllOrderedProductByOrderId(id);
@@ -100,13 +119,13 @@ public class ApiController {
         return orderService.findAll();
     }
 
-    @PatchMapping(value = "/blockuser/{id}")
+    @PatchMapping(value = "/blockUser/{id}")
     public void blockUser(@PathVariable("id") Long id) {
 
         userService.blockUser(id);
     }
 
-    @PatchMapping(value = "/unblockuser/{id}")
+    @PatchMapping(value = "/unblockUser/{id}")
     public void unBlockUser(@PathVariable("id") Long id) {
 
         userService.unblockUser(id);

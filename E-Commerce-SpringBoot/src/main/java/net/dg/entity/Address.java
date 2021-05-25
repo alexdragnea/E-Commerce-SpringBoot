@@ -3,6 +3,7 @@ package net.dg.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @AllArgsConstructor
@@ -37,18 +38,14 @@ public class Address {
     private String contact;
 
     public boolean isEmpty() {
-        if (streetName == null)
-            return true;
-        if (streetNumber == null)
-            return true;
-        if (city == null)
-            return true;
-        if (zipCode == null)
-            return true;
-        if (contact == null)
-            return true;
 
-        return false;
+        boolean isEmpty = false;
+
+        if (streetName == null || streetNumber == null
+                || city == null || zipCode == null ||contact == null )
+            isEmpty = true;
+
+        return isEmpty;
     }
 
 

@@ -10,9 +10,7 @@ import net.dg.repository.OrderedProductRepository;
 import net.dg.service.CartService;
 import net.dg.service.OrderService;
 import net.dg.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.*;
 
