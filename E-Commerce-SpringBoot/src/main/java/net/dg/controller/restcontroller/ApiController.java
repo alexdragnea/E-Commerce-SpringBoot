@@ -39,19 +39,19 @@ public class ApiController {
     }
 
 
-    @PostMapping("/addProduct")
+    @PostMapping("/product")
     public ResponseEntity<Void> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/user")
     public ResponseEntity<Void> addUser(@Valid @RequestBody User user) {
         userService.saveNewUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PatchMapping(path = "/updateUser/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PatchMapping(path = "/user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateUser(@PathVariable Long id, @RequestBody Map<String, Object> requestBody) {
 
@@ -61,23 +61,23 @@ public class ApiController {
         userService.saveNewUser(userToBeUpdated);
     }
 
-    @GetMapping(value = "/getProductsByKeyword/{keyword}")
+    @GetMapping(value = "/products/{keyword}")
     public List<Product> getProductsBykeyword(@PathVariable String keyword) throws ProductNotFoundException {
 
         return productService.findByKeyword(keyword);
     }
 
-    @DeleteMapping(path = "/deleteUser/{id}")
+    @DeleteMapping(path = "/deleteuser/{id}")
     public void deletePerson(@PathVariable Long id) {
         userService.deleteById(id);
     }
 
-    @DeleteMapping(path = "/deleteProduct/{id}")
+    @DeleteMapping(path = "/deleteproduct/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
     }
 
-    @GetMapping(value = "/getUser/{id}")
+    @GetMapping(value = "/user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
 
         Optional<User> optional = userService.findById(id);
@@ -89,7 +89,7 @@ public class ApiController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/getProduct/{id}")
+    @GetMapping(value = "/product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
 
         Optional<Product> optional = productService.getProductById(id);
@@ -100,7 +100,7 @@ public class ApiController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/getOrderedProducts/{id}")
+    @GetMapping(value = "/orderedproducts/{id}")
     public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception {
 
         return orderService.findAllOrderedProductByOrderId(id);
@@ -119,13 +119,13 @@ public class ApiController {
         return orderService.findAll();
     }
 
-    @PatchMapping(value = "/blockUser/{id}")
+    @PatchMapping(value = "/blockuser/{id}")
     public void blockUser(@PathVariable("id") Long id) {
 
         userService.blockUser(id);
     }
 
-    @PatchMapping(value = "/unblockUser/{id}")
+    @PatchMapping(value = "/unblockuser/{id}")
     public void unBlockUser(@PathVariable("id") Long id) {
 
         userService.unblockUser(id);

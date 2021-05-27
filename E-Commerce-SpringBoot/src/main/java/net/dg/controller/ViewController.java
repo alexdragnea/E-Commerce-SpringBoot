@@ -24,7 +24,7 @@ public class ViewController {
 
         if (keyword != null) {
             try {
-                model.addAttribute("productList", productService.findByKeyword(keyword));
+                model.addAttribute("products", productService.findByKeyword(keyword));
                 return "user/productlist";
             } catch (ProductNotFoundException e) {
                 e.printStackTrace();
@@ -49,7 +49,7 @@ public class ViewController {
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("productList", productList);
+        model.addAttribute("products", productList);
 
         return "user/productlist";
     }

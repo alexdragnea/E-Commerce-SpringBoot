@@ -137,6 +137,7 @@ public class UserController {
 
         if (token != null) {
             Optional<User> optional = userRepository.findByEmail(token.getUser().getEmail());
+
             User user = optional.get();
 
             userRepository.save(user);
@@ -151,7 +152,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+    @PostMapping(value = "/reset-password")
     public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
 
         if (user.getEmail() != null) {

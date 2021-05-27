@@ -107,4 +107,6 @@ public class User implements UserDetails {
         this.address.setContact(contact);
         this.address.setZipCode(zipCode);
     }
+
+
 }

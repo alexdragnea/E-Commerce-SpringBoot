@@ -55,7 +55,7 @@ public class ProductController {
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("productList", productList);
+        model.addAttribute("products", productList);
 
         return "admin/products";
     }
@@ -142,13 +142,12 @@ public class ProductController {
     public void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
             throws IOException {
 
-        log.info("Product id: " + id);
+        Optional<Product> existingProduct = productService.getProductById(id);
 
-        if (product.isPresent()) {
-
-            product = productService.getProductById(id);
+        if (existingProduct.isPresent()) {
+            log.info("Product id: " + id);
             response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-            response.getOutputStream().write(product.get().getImage());
+            response.getOutputStream().write(existingProduct.get().getImage());
             response.getOutputStream().close();
         }
     }

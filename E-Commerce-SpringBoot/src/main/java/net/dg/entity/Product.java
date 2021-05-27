@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 
 @Entity
 @Table(name = "products")

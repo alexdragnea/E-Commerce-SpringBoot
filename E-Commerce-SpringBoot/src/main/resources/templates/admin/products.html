@@ -25,7 +25,7 @@
             <th>Actions</th>
         </tr>
         </thead>
-        <tr th:each="productList, hh : ${productList}">
+        <tr th:each="productList, hh : ${products}">
             <td th:text="${productList.id}"></td>
             <td th:text="${productList.name}"></td>
             <td><img

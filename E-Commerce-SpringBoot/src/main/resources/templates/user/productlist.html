@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
@@ -81,7 +81,7 @@
                                            hidefocus="true"/>
 </form>
 
-<div class="product-preview-container" th:each="product : ${productList}">
+<div class="product-preview-container" th:each="product : ${products}">
     <ul>
         <li><img class="product-image"
                  th:src="@{|/product/display/${product.id}|}"
