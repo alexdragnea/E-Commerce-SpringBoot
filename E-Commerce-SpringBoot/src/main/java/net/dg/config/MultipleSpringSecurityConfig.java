@@ -32,7 +32,7 @@ public class MultipleSpringSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests().antMatchers(
-                    "/admin/**", "/admin*").hasRole(ADMIN)
+                    "/admin/**").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
                     "/", "/registration/**",
@@ -89,10 +89,14 @@ public class MultipleSpringSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests().antMatchers(
-                    "/user/**", "/user**").hasRole("USER")
-                    .antMatchers("/admin/**", "/admin*").hasRole(ADMIN)
+                    "/user/**").hasRole("USER")
+                    .antMatchers("/admin/**").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
+                    "/user/confirm-account/**",
+                    "/user/confirm-reset/**",
+                    "/user/forgot-password/**",
+                    "/user/reset-password/**",
                     "/", "/registration/**",
                     "/login/**",
                     "/js/**",
@@ -100,11 +104,7 @@ public class MultipleSpringSecurityConfig {
                     "/images/**",
                     "/api/**",
                     "/product/**",
-                    "/page/**",
-                    "/user/confirm-account/**",
-                    "/user/confirm-reset/**",
-                    "/user/forgot-password/**",
-                    "/user/reset-password/**").permitAll()
+                    "/page/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

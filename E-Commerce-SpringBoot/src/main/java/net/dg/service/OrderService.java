@@ -22,15 +22,15 @@ public interface OrderService {
     Set<Order> findAll();
     Set<Order> findAllByApprovedFalse();
     Set<Order> findAllByApprovedTrue();
-    void approveOrder(Long orderId) throws Exception;
-    Order findOrderById(Long orderId) throws Exception;
+    void approveOrder(Long orderId) throws IllegalArgumentException;
+    Order findOrderById(Long orderId) throws IllegalArgumentException;
 
     void saveProduct(OrderedProduct orderedProduct);
     Set<OrderedProduct> findAllOrderedProductByOrder(Order order);
-    Set<OrderedProduct> findAllOrderedProductByOrderId(Long orderId) throws Exception;
+    Set<OrderedProduct> findAllOrderedProductByOrderId(Long orderId);
 
     BigDecimal getTotal(Set<OrderedProduct> products);
 
-    void declineOrder(Long orderId) throws Exception;
+    void declineOrder(Long orderId) throws IllegalArgumentException;
 
 }

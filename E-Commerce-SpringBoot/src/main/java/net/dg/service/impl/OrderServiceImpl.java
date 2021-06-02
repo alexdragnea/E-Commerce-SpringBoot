@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void makeOrder(User user) throws EmptyCartException, StockIsNotEnoughException, AddressNotFoundException {
         Map<Product, Integer> productsForOrder = cartService.getAllProductsInCart(user);
-        Address existingAddress = user.getAddress();
+        ShippingAddress existingAddress = user.getAddress();
 
         if (productsForOrder.isEmpty()) {
             throw new EmptyCartException();
@@ -119,14 +119,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void approveOrder(Long orderId) throws Exception {
-        Order order = orderRepository.findById(orderId).orElseThrow((Exception::new));
+    public void approveOrder(Long orderId) throws IllegalArgumentException {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
 
         Set<OrderedProduct> orderedProducts = order.getOrderedProducts();
         for (OrderedProduct x : orderedProducts) {
             if (x.getQuantity() > productService
                     .getProductById(x.getProductId())
-                    .orElseThrow(Exception::new).getQuantity()) {
+                    .orElseThrow(IllegalArgumentException::new).getQuantity()) {
                 throw new StockIsNotEnoughException();
             }
         }
@@ -137,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
         for (OrderedProduct x : orderedProducts) {
             Product product = productService
                     .getProductById(x.getProductId())
-                    .orElseThrow(Exception::new);
+                    .orElseThrow(() -> new IllegalArgumentException("Product cannot be found."));
             product.setQuantity(product.getQuantity() - x.getQuantity());
             productService.saveProduct(product);
         }
@@ -145,8 +146,9 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void declineOrder(Long orderId) throws Exception {
-        Order currentOrder = orderRepository.findOneById(orderId).orElseThrow(Exception::new);
+    public void declineOrder(Long orderId) throws IllegalArgumentException {
+        Order currentOrder = orderRepository.findOneById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
 
         for (OrderedProduct x : currentOrder.getOrderedProducts()) {
             cartService.addProductToCart(currentOrder.getUser(), x.getProductId());
@@ -156,8 +158,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findOrderById(Long orderId) throws Exception {
-        return orderRepository.findOneById(orderId).orElseThrow(Exception::new);
+    public Order findOrderById(Long orderId) throws IllegalArgumentException {
+        return orderRepository.findOneById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
     }
 
 
@@ -172,7 +175,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Set<OrderedProduct> findAllOrderedProductByOrderId(Long orderId) throws Exception {
+    public Set<OrderedProduct> findAllOrderedProductByOrderId(Long orderId) {
         return findAllOrderedProductByOrder(findOrderById(orderId));
     }
 

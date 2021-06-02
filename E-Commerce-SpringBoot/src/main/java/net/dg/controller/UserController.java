@@ -1,6 +1,7 @@
 package net.dg.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.dg.entity.ConfirmationToken;
 import net.dg.entity.User;
 import net.dg.repository.ConfirmationTokenRepository;
@@ -9,6 +10,7 @@ import net.dg.service.EmailService;
 import net.dg.service.ProductService;
 import net.dg.service.UserService;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,12 @@ import java.util.Optional;
 @AllArgsConstructor
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    private final static String FORGOT_PASSWORD = "login/forgotPassword";
-    private final static String RESET_PASSWORD = "login/resetPassword";
-    private final static String ERROR = "error";
+    private static final String FORGOT_PASSWORD = "login/forgotPassword";
+    private static final String RESET_PASSWORD = "login/resetPassword";
+    private static final String ERROR = "error";
 
     private final UserService userService;
     private final ProductService productService;
@@ -37,7 +40,9 @@ public class UserController {
 
 
     @GetMapping("/account")
-    public String editOwnAccount(@AuthenticationPrincipal User user, Model model) {
+    public String editOwnAccount(@AuthenticationPrincipal User user, Model model, Authentication a) {
+        log.info("Logged in user is " + a.getName());
+
         model.addAttribute("user", user);
         return "/user/user_account";
     }
@@ -138,7 +143,7 @@ public class UserController {
         if (token != null) {
             Optional<User> optional = userRepository.findByEmail(token.getUser().getEmail());
 
-            User user = optional.get();
+            User user = optional.orElseThrow(() -> new IllegalArgumentException("User cannot be null"));
 
             userRepository.save(user);
             modelAndView.addObject("user", user);
@@ -157,7 +162,7 @@ public class UserController {
 
         if (user.getEmail() != null) {
             Optional<User> optional = userRepository.findByEmail(user.getEmail());
-            User tokenUser = optional.get();
+            User tokenUser = optional.orElseThrow(() -> new IllegalArgumentException("User cannot be null"));
             tokenUser.setPassword(encoder.encode(user.getPassword()));
 
             userRepository.save(tokenUser);

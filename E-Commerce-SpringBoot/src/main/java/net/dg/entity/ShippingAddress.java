@@ -13,9 +13,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "shippingAddress")
-public class Address {
+public class ShippingAddress {
 
-    private static final Address EMPTY = new Address();
+    private static final ShippingAddress EMPTY = new ShippingAddress();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

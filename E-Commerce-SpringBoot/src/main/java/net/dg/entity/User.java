@@ -59,7 +59,7 @@ public class User implements UserDetails {
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     @JsonIgnore
-    private Address address;
+    private ShippingAddress address;
 
 
     @Override

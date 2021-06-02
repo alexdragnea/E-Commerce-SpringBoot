@@ -1,7 +1,7 @@
 package net.dg.service.impl;
 
 import lombok.AllArgsConstructor;
-import net.dg.entity.Address;
+import net.dg.entity.ShippingAddress;
 import net.dg.entity.Cart;
 import net.dg.entity.User;
 import net.dg.repository.UserRepository;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         final String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
         user.setCart(new Cart());
-        user.setAddress(new Address());
+        user.setAddress(new ShippingAddress());
         userRepository.save(user);
 
         return true;
@@ -95,9 +95,9 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
 
     @Override
     public void updateAddress(User user, String streetName, String streetNumber,
-                              String city, String country, String zipCode) {
+                              String city, String contact, String zipCode) {
 
-        user.setAddress(streetName, streetNumber, city, country, zipCode);
+        user.setAddress(streetName, streetNumber, city, contact, zipCode);
 
         userRepository.save(user);
     }

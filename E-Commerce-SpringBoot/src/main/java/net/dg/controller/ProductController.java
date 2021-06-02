@@ -31,7 +31,7 @@ public class ProductController {
     @Value("${uploadDir}")
     private String uploadFolder;
 
-    private final static String REDIRECT_ADMIN_PRODUCTS = "redirect:/admin/products/show";
+    private static final String REDIRECT_ADMIN_PRODUCTS = "redirect:/admin/products/show";
 
     private final ProductService productService;
 
@@ -74,7 +74,7 @@ public class ProductController {
 
     @PostMapping("/admin/product/saveProductDetails")
     public @ResponseBody
-    ResponseEntity<?> createProduct(@RequestParam("name") String name,
+    ResponseEntity<Object> createProduct(@RequestParam("name") String name,
                                     @RequestParam("price") BigDecimal price, @RequestParam("description") String description
             , @RequestParam("quantity") int quantity, Model model, HttpServletRequest request
             , final @RequestParam("image") MultipartFile file) {
@@ -103,20 +103,14 @@ public class ProductController {
             log.info("Price: " + price);
             log.info("Publishing date: " + createDate);
 
-            try {
-
                 File dir = new File(uploadDirectory);
                 if (!dir.exists()) {
-
                     dir.mkdirs();
                 }
 
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
                 stream.write(file.getBytes());
                 stream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             byte[] imageData = file.getBytes();
             Product product = new Product();
@@ -153,11 +147,12 @@ public class ProductController {
     }
 
     @GetMapping("/product/productDetails")
-    public String showProductDetails(@RequestParam("id") Long id, Optional<Product> product, Model model) {
+    public String showProductDetails(@RequestParam("id") Long id, Model model) {
         try {
 
+
             if (id != 0) {
-                product = productService.getProductById(id);
+               Optional<Product> product = productService.getProductById(id);
 
                 log.info("Product: " + product);
 

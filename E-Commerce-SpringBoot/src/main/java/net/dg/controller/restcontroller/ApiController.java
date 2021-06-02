@@ -101,7 +101,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/orderedproducts/{id}")
-    public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) throws Exception {
+    public Set<OrderedProduct> getAllOrders(@PathVariable("id") Long id) {
 
         return orderService.findAllOrderedProductByOrderId(id);
     }

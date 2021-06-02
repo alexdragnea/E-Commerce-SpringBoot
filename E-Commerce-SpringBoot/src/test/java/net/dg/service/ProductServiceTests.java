@@ -1,24 +1,24 @@
 package net.dg.service;
 
 import net.dg.entity.Product;
+import net.dg.exceptions.ProductNotFoundException;
 import net.dg.repository.ProductRepository;
 import net.dg.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceTests {
+class ProductServiceTests {
 
     private ProductRepository productRepository;
 
@@ -31,7 +31,24 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void shouldReturnAllProducts() {
+    void shouldReturnNewCreatedProduct(){
+
+        Product newProduct = Product.builder().id(1L).name("Laptop MSI GF65")
+                .price(BigDecimal.valueOf(999)).build();
+
+        productService.saveProduct(newProduct);
+
+        when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(newProduct));
+
+        Optional<Product> productExpected = productService.getProductById(1L);
+
+        assertNotNull(productExpected);
+        assertEquals("Laptop MSI GF65", productExpected.get().getName());
+
+    }
+
+    @Test
+    void shouldReturnAllProducts() {
 
         Product expected1 = Product.builder().id(1L).name("Laptop ASUS TUF")
                 .price(BigDecimal.valueOf(1000)).build();
@@ -72,6 +89,33 @@ public class ProductServiceTests {
 
         productService.deleteProductById(expected.getId());
         Mockito.verify(productRepository).deleteById(expected.getId());
+    }
+
+    @Test
+    @DisplayName("Should return ProductNotFoundException based on search criteria.")
+    void shouldReturnProductNotFoundException(){
+
+        assertThrows(ProductNotFoundException.class, ()-> productService.findByKeyword("laptop"));
+    }
+
+    @Test
+    @DisplayName("Should return product/s based on search criteria.")
+    void shouldReturnProductsBasedOnSearch(){
+
+        Product expectedProduct1 = Product.builder().id(1L).name("Laptop ASUS ")
+                .price(BigDecimal.valueOf(900)).build();
+
+        Product expectedProduct2 = Product.builder().id(1L).name("Laptop MSI ")
+                .price(BigDecimal.valueOf(1000)).build();
+
+        List<Product> expectedProducts = List.of(expectedProduct1, expectedProduct2);
+
+        Mockito.when(productRepository.findByKeyword("Laptop"))
+                .thenReturn(expectedProducts);
+
+        assertNotNull(productRepository.findByKeyword("Laptop"));
+        assertEquals(2, productRepository.findByKeyword("Laptop").size());
+
     }
 
 }

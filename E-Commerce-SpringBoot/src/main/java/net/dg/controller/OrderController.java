@@ -32,7 +32,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders/approve")
-    public String approveOrder(@RequestParam("orderId") Long orderId, Model model) throws Exception {
+    public String approveOrder(@RequestParam("orderId") Long orderId, Model model) throws IllegalArgumentException {
 
             Order order = orderService.findOrderById(orderId);
             Optional<User> optional = userService.findById(order.getUser().getId());
@@ -55,7 +55,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders/{orderId}")
-    public String orderInfo(@PathVariable("orderId") Long orderId, Model model) throws Exception {
+    public String orderInfo(@PathVariable("orderId") Long orderId, Model model) {
         Set<OrderedProduct> orderedProducts = orderService.findAllOrderedProductByOrderId(orderId);
         model.addAttribute("orderedProducts", orderedProducts);
         model.addAttribute("totalPrice", orderService.getTotal(orderedProducts));
@@ -63,7 +63,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders/decline")
-    public String declineOrder(@RequestParam("orderId") Long orderId) throws Exception {
+    public String declineOrder(@RequestParam("orderId") Long orderId) {
         orderService.declineOrder(orderId);
         return "redirect:/admin/orders";
     }
