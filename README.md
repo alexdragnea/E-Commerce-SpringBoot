@@ -25,6 +25,7 @@ There are two types of users :
 - Html & CSS 
 - Bootstrap 5.0
 - Hibernate 
+- JUnit 5 & Mockito
 
 # Features 
 - Using Spring-boot-starter-mail for seding emails with unique tokens for account activation / reseting password, for order confirmations.
