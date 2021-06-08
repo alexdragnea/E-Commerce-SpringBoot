@@ -4,7 +4,7 @@ Simple demo E-Commerce application with Spring boot.
 # About
 E-Commerce is a demo project which puts in practice what I learned during School-For-Java Bootcamp from Endava and on my own.This projects is based on Spring Boot and uses other spring modules like Spring Security.
 
-For demonstration purpose I created a Rest Controller with diffrent endpoints like adding products/users from the body to retrieving lists of users, products based on the primary keys and more.
+For demonstration purpose I created a Rest Controller with different endpoints like adding products/users from the body to retrieving lists of users, products based on the primary keys and more.
 
 There are two types of users :
  - [USER] who can perform basic operations specific to an online shopping platform like registration/reseting password with confirmation on email for activating the account/ reseting the password, adding products to the cart, making orders, etc..
@@ -25,6 +25,7 @@ There are two types of users :
 - Html & CSS 
 - Bootstrap 5.0
 - Hibernate 
+- JUnit 5 & Mockito
 
 # Features 
 - Using Spring-boot-starter-mail for seding emails with unique tokens for account activation / reseting password, for order confirmations.
