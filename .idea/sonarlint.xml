@@ -26,6 +26,7 @@
         <option value="FILE:src/main/resources/templates/user/user_home.html" />
         <option value="FILE:src/main/resources/templates/admin/users.html" />
         <option value="FILE:src/test/java/net/dg/ECommerceSpringBootApplicationTests.java" />
+        <option value="FILE:src/main/java/net/dg/controller/ProductController.java" />
       </list>
     </option>
   </component>

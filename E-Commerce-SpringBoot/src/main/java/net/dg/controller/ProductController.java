@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -75,9 +72,10 @@ public class ProductController {
     @PostMapping("/admin/product/saveProductDetails")
     public @ResponseBody
     ResponseEntity<Object> createProduct(@RequestParam("name") String name,
-                                    @RequestParam("price") BigDecimal price, @RequestParam("description") String description
-            , @RequestParam("quantity") int quantity, Model model, HttpServletRequest request
-            , final @RequestParam("image") MultipartFile file) {
+                                         @RequestParam("price") BigDecimal price,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("quantity") int quantity, Model model, HttpServletRequest request,
+                                         final @RequestParam("image") MultipartFile file) {
 
         try {
 
@@ -103,14 +101,14 @@ public class ProductController {
             log.info("Price: " + price);
             log.info("Publishing date: " + createDate);
 
-                File dir = new File(uploadDirectory);
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
+            File dir = new File(uploadDirectory);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-                stream.write(file.getBytes());
-                stream.close();
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
+            stream.write(file.getBytes());
+            stream.close();
 
             byte[] imageData = file.getBytes();
             Product product = new Product();
@@ -152,7 +150,7 @@ public class ProductController {
 
 
             if (id != 0) {
-               Optional<Product> product = productService.getProductById(id);
+                Optional<Product> product = productService.getProductById(id);
 
                 log.info("Product: " + product);
 
@@ -170,7 +168,7 @@ public class ProductController {
             e.printStackTrace();
             return REDIRECT_ADMIN_PRODUCTS;
         }
-    }
 
+    }
 
 }

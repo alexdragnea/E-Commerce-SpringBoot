@@ -58,8 +58,8 @@ public class CartServiceImpl implements CartService {
     public Map<Product, Integer> getAllProductsInCart(User user) {
         return inCartProductRepository.findAllByCart(user.getCart()).stream()
                 .collect(Collectors
-                        .toMap(inCartProduct -> inCartProduct.getProduct(),
-                                productQuantity -> productQuantity.getNeededQuantity()));
+                        .toMap(InCartProduct::getProduct,
+                                InCartProduct::getNeededQuantity));
     }
 
     @Override

@@ -23,6 +23,8 @@ public class OrderServiceImpl implements OrderService {
     private final CartService cartService;
     private final ProductService productService;
 
+    private static final String ORDER_NOT_FOUND = "Order cannot be found.";
+
 
     @Override
     public void makeOrder(User user) throws EmptyCartException, StockIsNotEnoughException, AddressNotFoundException {
@@ -121,13 +123,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void approveOrder(Long orderId) throws IllegalArgumentException {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
+                .orElseThrow(() -> new IllegalArgumentException(ORDER_NOT_FOUND));
 
         Set<OrderedProduct> orderedProducts = order.getOrderedProducts();
         for (OrderedProduct x : orderedProducts) {
             if (x.getQuantity() > productService
                     .getProductById(x.getProductId())
-                    .orElseThrow(IllegalArgumentException::new).getQuantity()) {
+                    .orElseThrow(StockIsNotEnoughException::new).getQuantity()) {
                 throw new StockIsNotEnoughException();
             }
         }
@@ -148,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void declineOrder(Long orderId) throws IllegalArgumentException {
         Order currentOrder = orderRepository.findOneById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
+                .orElseThrow(() -> new IllegalArgumentException(ORDER_NOT_FOUND));
 
         for (OrderedProduct x : currentOrder.getOrderedProducts()) {
             cartService.addProductToCart(currentOrder.getUser(), x.getProductId());
@@ -160,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findOrderById(Long orderId) throws IllegalArgumentException {
         return orderRepository.findOneById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Order cannot be found."));
+                .orElseThrow(() -> new IllegalArgumentException(ORDER_NOT_FOUND));
     }
 
 

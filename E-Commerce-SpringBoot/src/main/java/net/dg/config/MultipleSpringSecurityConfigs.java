@@ -14,9 +14,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class MultipleSpringSecurityConfig {
+public class MultipleSpringSecurityConfigs {
 
     private static final String ADMIN = "ADMIN";
+    private static final String LOGIN = "/login";
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -50,8 +51,8 @@ public class MultipleSpringSecurityConfig {
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
+                    .loginPage(LOGIN)
+                    .loginProcessingUrl(LOGIN)
                     .defaultSuccessUrl("/", true)
                     .permitAll()
                     .and()
@@ -108,8 +109,8 @@ public class MultipleSpringSecurityConfig {
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
+                    .loginPage(LOGIN)
+                    .loginProcessingUrl(LOGIN)
                     .defaultSuccessUrl("/", true)
                     .permitAll()
                     .and()
