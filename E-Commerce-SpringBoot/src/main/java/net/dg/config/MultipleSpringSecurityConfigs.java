@@ -33,21 +33,21 @@ public class MultipleSpringSecurityConfigs {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests().antMatchers(
-                    "/admin/**").hasRole(ADMIN)
+                            "/admin/**").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
-                    "/", "/registration/**",
-                    "/login/**",
-                    "/js/**",
-                    "/css/**",
-                    "/images/**",
-                    "/api/**",
-                    "/product/**",
-                    "/page/**",
-                    "/user/confirm-account/**",
-                    "/user/confirm-reset/**",
-                    "/user/forgot-password/**",
-                    "/user/reset-password/**").permitAll()
+                            "/", "/registration/**",
+                            "/login/**",
+                            "/js/**",
+                            "/css/**",
+                            "/images/**",
+                            "/api/**",
+                            "/product/**",
+                            "/page/**",
+                            "/user/confirm-account/**",
+                            "/user/confirm-reset/**",
+                            "/user/forgot-password/**",
+                            "/user/reset-password/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
@@ -90,22 +90,22 @@ public class MultipleSpringSecurityConfigs {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests().antMatchers(
-                    "/user/**").hasRole("USER")
+                            "/user/**").hasRole("USER")
                     .antMatchers("/admin/**").hasRole(ADMIN)
                     .and()
                     .authorizeRequests().antMatchers(
-                    "/user/confirm-account/**",
-                    "/user/confirm-reset/**",
-                    "/user/forgot-password/**",
-                    "/user/reset-password/**",
-                    "/", "/registration/**",
-                    "/login/**",
-                    "/js/**",
-                    "/css/**",
-                    "/images/**",
-                    "/api/**",
-                    "/product/**",
-                    "/page/**").permitAll()
+                            "/user/confirm-account/**",
+                            "/user/confirm-reset/**",
+                            "/user/forgot-password/**",
+                            "/user/reset-password/**",
+                            "/", "/registration/**",
+                            "/login/**",
+                            "/js/**",
+                            "/css/**",
+                            "/images/**",
+                            "/api/**",
+                            "/product/**",
+                            "/page/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

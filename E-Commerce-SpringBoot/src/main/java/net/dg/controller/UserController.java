@@ -119,7 +119,7 @@ public class UserController {
             mailMessage.setTo(existingUser.getEmail());
             mailMessage.setSubject("Complete Password Reset");
             mailMessage.setFrom("javaprojects1999@gmail.com");
-            mailMessage.setText("Tom complete the password reset, please click here: "
+            mailMessage.setText("To complete the password reset, please click here: "
                     + "http://localhost:8080/user/confirm-reset?token=" + confirmationToken.getConfirmationToken());
 
             emailService.sendEmail(mailMessage);
