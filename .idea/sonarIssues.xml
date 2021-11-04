@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/E-Commerce-SpringBoot/src/main/java/net/dg/config/MultipleSpringSecurityConfigs.java">
           <value>
             <set />
@@ -19,6 +24,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/E-Commerce-SpringBoot/src/main/java/net/dg/controller/UserController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/E-Commerce-SpringBoot/src/main/java/net/dg/entity/Product.java">
           <value>
             <set />
           </value>
@@ -39,6 +49,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/E-Commerce-SpringBoot/src/test/java/net/dg/integrations/ProductControllerIntegrationTests.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/E-Commerce-SpringBoot/src/test/java/net/dg/integrations/RestIntegrationTests.java">
           <value>
             <set />
           </value>
