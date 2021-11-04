@@ -10,14 +10,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProductControllerIntegrationTests {
+public class UserControllerIntegrationTests {
 
     @LocalServerPort
     private int port;
@@ -31,17 +28,15 @@ public class ProductControllerIntegrationTests {
     }
 
     @Test
-    public void testRetrieveProduct() throws Exception {
+    public void testRetriveUser() throws Exception {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/api/product/1"), HttpMethod.GET, entity, String.class);
+                createURLWithPort("/api/user/1"), HttpMethod.GET, entity, String.class);
 
-        String expected = "{\"id\":1,\"name\":\"Casti Gaming Razer Kraken Tournament Ed.\"," +
-                "\"description\":\"Casti Gaming Razer Kraken Tournament Edition USB Controller\"}";
+        String expected = "{\"id\":1,\"email\":\"alexdg722@gmail.com\"," +
+                "\"firstName\":\"Dragnea\"}";
 
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
-
 }
-
